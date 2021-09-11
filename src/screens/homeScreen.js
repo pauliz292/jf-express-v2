@@ -1,23 +1,62 @@
 import React from 'react'
-import { View } from 'react-native'
-import { Button } from 'react-native-elements'
+import { Text, View, ScrollView, StyleSheet } from 'react-native'
+import { Card, Button, Icon } from 'react-native-elements'
 // import { useNavigation } from '@react-navigation/native'
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
     // const navigation = useNavigation();
 
     return(
-        <View>
-            <Button 
-                title="Log In" 
-                onPress={() => navigation.push("Login")}
-            />
-            <Button 
-                title="Sign Up" 
-                onPress={() => navigation.push("SignUp")}
-            />
-        </View>
+        <ScrollView>
+            <View style={styles.container}>
+                <Card>
+                    <Card.Title>Product 1</Card.Title>
+                    <Card.Divider/>
+                    <Card.Image source={require('../../assets/meat.png')}/>
+                        <Text style={{marginBottom: 10}}>
+                        The idea with React Native Elements is more about component structure than actual design.
+                        </Text>
+                        <Button
+                        icon={<Icon name='code' color='#ffffff' />}
+                        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                        title='VIEW NOW' />
+                </Card>
+                <Card>
+                    <Card.Title>Product 2</Card.Title>
+                    <Card.Divider/>
+                    <Card.Image source={require('../../assets/meat.png')}/>
+                        <Text style={{marginBottom: 10}}>
+                        The idea with React Native Elements is more about component structure than actual design.
+                        </Text>
+                        <Button
+                        icon={<Icon name='code' color='#ffffff' />}
+                        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                        title='VIEW NOW' />
+                </Card>
+                <Card>
+                    <Card.Title>Product 3</Card.Title>
+                    <Card.Divider/>
+                    <Card.Image source={require('../../assets/meat.png')}/>
+                        <Text style={{marginBottom: 10}}>
+                        The idea with React Native Elements is more about component structure than actual design.
+                        </Text>
+                        <Button
+                        icon={<Icon name='code' color='#ffffff' />}
+                        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                        title='VIEW NOW' />
+                </Card>
+            </View>
+        </ScrollView>
     );
 }
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});

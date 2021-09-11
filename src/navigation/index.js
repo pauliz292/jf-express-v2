@@ -3,15 +3,23 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 
+import HomeScreen from '../screens/homeScreen'
 import SignUpScreen from '../components/auth/signUp'
 import LoginScreen from '../components/auth/login'
 import ProfileScreen from '../components/profile/profile'
 import ActivityScreen from '../components/activity/activity'
 
+const HomeStack = createStackNavigator();
+const HomeStackScren = () => (
+    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
+        <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+    </HomeStack.Navigator>
+)
+
 const AuthStack = createStackNavigator();
 const AuthStackScren = () => (
     <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-        <AuthStack.Screen name="Login" component={LoginScreen} />
+        <AuthStack.Screen name="LoginScreen" component={LoginScreen} />
         <AuthStack.Screen 
             name="SignUp" 
             component={SignUpScreen}
@@ -25,14 +33,14 @@ const AuthStackScren = () => (
 const ProfileStack = createStackNavigator();
 const ProfileStackScren = () => (
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
-        <ProfileStack.Screen name="Profile" component={ProfileScreen} />
+        <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
     </ProfileStack.Navigator>
 )
 
 const ActivityStack = createStackNavigator();
 const ActivityStackScreen = () => (
     <ActivityStack.Navigator screenOptions={{ headerShown: false }}>
-        <ActivityStack.Screen name="Activity" component={ActivityScreen} />
+        <ActivityStack.Screen name="ActivityScreen" component={ActivityScreen} />
     </ActivityStack.Navigator>
 )
 
@@ -42,6 +50,7 @@ export default function HomeNavigation () {
     return(
         <NavigationContainer>
             <Drawer.Navigator>
+                <Drawer.Screen name="Home" component={HomeStackScren} />
                 <Drawer.Screen name="Profile" component={ProfileStackScren} />
                 <Drawer.Screen name="Activity" component={ActivityStackScreen} />
                 <Drawer.Screen name="Login" component={AuthStackScren} />
