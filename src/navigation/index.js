@@ -8,11 +8,13 @@ import SignUpScreen from '../components/auth/signUp'
 import LoginScreen from '../components/auth/login'
 import ProfileScreen from '../components/profile/profile'
 import ActivityScreen from '../components/activity/activity'
+import CartScreen from '../components/cart/cart'
 
 const HomeStack = createStackNavigator();
 const HomeStackScren = () => (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
         <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+        <HomeStack.Screen name="CartScreen" component={CartScreen} />
     </HomeStack.Navigator>
 )
 
