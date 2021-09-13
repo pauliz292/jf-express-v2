@@ -1,11 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button, Icon, ListItem } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 
 
 const CartScreen = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+    const [qty, setQty] = useState(1);
+
+    const handleAddQty = (e) => {
+        e.preventDefault();
+        let i = qty;
+        console.log(++i)
+        setQty(i);
+    }
+
+    const handleSubtractQty = (e) => {
+        e.preventDefault();
+        let i = qty;
+        console.log(--i)
+        setQty(i);
+    }
 
     return(
         <View style={styles.container}>
@@ -18,9 +33,17 @@ const CartScreen = () => {
                             Product description
                         </ListItem.Subtitle>
                         <View style={styles.buttonContainer}>
-                            <Button icon={<Icon name='plus' type='font-awesome' color='#ffffff' />} buttonStyle={{ marginRight: 8 }}/>
-                            <Button icon={<Icon name='minus' type='font-awesome' color='#ffffff' />} buttonStyle={{ backgroundColor: '#E53935' }}/>
-                            <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 16 }}>QTY: 1</Text>
+                            <Button 
+                                icon={<Icon name='plus' type='font-awesome' color='#ffffff' />} 
+                                buttonStyle={{ marginRight: 8 }}
+                                onPress={e => handleAddQty(e)}
+                            />
+                            <Button 
+                                icon={<Icon name='minus' type='font-awesome' color='#ffffff' />} 
+                                buttonStyle={{ backgroundColor: '#E53935' }}
+                                onPress={e => handleSubtractQty(e)}
+                            />
+                            <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 16 }}>QTY: {qty}</Text>
                         </View>
                     </ListItem.Content>
                 </ListItem>
@@ -40,7 +63,7 @@ const CartScreen = () => {
             <View style={styles.formContainer}>
                 <Text style={{ fontWeight: 'bold', fontSize: 20 }}>TOTAL: PHP 900.00</Text>
                 <Button 
-                    buttonStyle={{borderRadius: 5, marginTop: 10, backgroundColor: '#E91E63'}}
+                    buttonStyle={{borderRadius: 5, marginTop: 10, backgroundColor: '#E57373'}}
                     onPress={() => navigation.navigate('HomeScreen')} 
                     title="Checkout" 
                 />

@@ -51,7 +51,15 @@ const Drawer = createDrawerNavigator();
 export default function HomeNavigation () {
     return(
         <NavigationContainer>
-            <Drawer.Navigator>
+            <Drawer.Navigator screenOptions={{ 
+                drawerStyle: {
+                    backgroundColor: '#C62828',
+                    width: 240,
+                    },
+                drawerLabelStyle: {
+                    color: '#fff'
+                } 
+            }}>
                 <Drawer.Screen name="Home" component={HomeStackScren} />
                 <Drawer.Screen name="Profile" component={ProfileStackScren} />
                 <Drawer.Screen name="Activity" component={ActivityStackScreen} />
