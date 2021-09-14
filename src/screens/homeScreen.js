@@ -2,55 +2,54 @@ import React from 'react'
 import { Text, View, ScrollView, StyleSheet } from 'react-native'
 import { Card, Button, Icon } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
+import { observer } from 'mobx-react-lite'
+import { useStore } from '../_api/_mobx/stores/store'
 
-const HomeScreen = () => {
+
+const HomeScreen = observer(() => {
     const navigation = useNavigation();
+
+    const { productStore, cartStore } = useStore();
+    const { products } = productStore;
+    const { cartItems, addCartItem } = cartStore;
 
     return(
         <ScrollView>
             <View style={styles.container}>
-                <Card>
-                    <Card.Title>Product 1</Card.Title>
-                    <Card.Divider/>
-                    <Card.Image source={require('../../assets/meat.png')}/>
-                        <Text style={{marginBottom: 10}}>
-                        The idea with React Native Elements is more about component structure than actual design.
-                        </Text>
-                        <Button
-                            icon={<Icon name='shopping-cart' color='#ffffff' />}
-                            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                            title='Add to Cart'
-                            onPress={() => navigation.navigate('CartScreen')} 
-                        />
-                </Card>
-                <Card>
-                    <Card.Title>Product 2</Card.Title>
-                    <Card.Divider/>
-                    <Card.Image source={require('../../assets/meat.png')}/>
-                        <Text style={{marginBottom: 10}}>
-                        The idea with React Native Elements is more about component structure than actual design.
-                        </Text>
-                        <Button
+                <View style={{ marginTop: 15, marginBottom: 15, padding: 10 }}> 
+                    <Button 
+                        title="Go to Cart" 
                         icon={<Icon name='shopping-cart' color='#ffffff' />}
-                        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                        title='Add to Cart' />
-                </Card>
-                <Card>
-                    <Card.Title>Product 3</Card.Title>
-                    <Card.Divider/>
-                    <Card.Image source={require('../../assets/meat.png')}/>
-                        <Text style={{marginBottom: 10}}>
-                        The idea with React Native Elements is more about component structure than actual design.
-                        </Text>
-                        <Button
-                        icon={<Icon name='shopping-cart' color='#ffffff' />}
-                        buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-                        title='Add to Cart' />
-                </Card>
+                        buttonStyle={{ backgroundColor: '#03A9F4' }} 
+                        onPress={() => navigation.navigate('CartScreen')}
+                    />
+                    <Text style={{ fontSize: 16 }}>Cart Items: {cartItems.length}</Text>
+                </View>
+                <View style={{ width: '100%' }}>
+                    {products.map(item => (
+                        <Card key={item.id}>
+                            <Card.Title>{item.name}</Card.Title>
+                            <Card.Divider/>
+                            <Card.Image source={require('../../assets/meat.png')}/>
+                                <Text style={{marginBottom: 5}}>
+                                    {item.description}
+                                </Text>
+                                <Text style={{marginBottom: 10}}>
+                                    PRICE: PHP {item.price}
+                                </Text>
+                                <Button
+                                    icon={<Icon name='shopping-cart' color='#ffffff' />}
+                                    buttonStyle={{borderRadius: 5, marginLeft: 0, marginRight: 0, marginBottom: 0}}
+                                    title='Add to Cart'
+                                    onPress={() => addCartItem(item)} 
+                                />
+                        </Card>
+                    ))}
+                </View>
             </View>
         </ScrollView>
     );
-}
+})
 
 export default HomeScreen;
 

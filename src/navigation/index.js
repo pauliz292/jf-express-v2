@@ -53,7 +53,7 @@ export default function HomeNavigation () {
         <NavigationContainer>
             <Drawer.Navigator screenOptions={{ 
                 drawerStyle: {
-                    backgroundColor: '#C62828',
+                    backgroundColor: '#B71C1C',
                     width: 240,
                     },
                 drawerLabelStyle: {

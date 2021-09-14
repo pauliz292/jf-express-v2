@@ -2,11 +2,16 @@ import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button, Icon, ListItem } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
+import { useStore } from '../../_api/_mobx/stores/store'
+import { observer } from 'mobx-react-lite'
 
 
-const CartScreen = () => {
+const CartScreen = observer(() => {
     const navigation = useNavigation();
     const [qty, setQty] = useState(1);
+
+    const { cartStore } = useStore();
+    const { cartItems } = cartStore;
 
     const handleAddQty = (e) => {
         e.preventDefault();
@@ -26,51 +31,46 @@ const CartScreen = () => {
         <View style={styles.container}>
             <Text style={styles.title}>Your Cart</Text>
             <View style={styles.listContainer}>
-                <ListItem bottomDivider>
-                    <ListItem.Content>
-                        <ListItem.Title>Product 1</ListItem.Title>
-                        <ListItem.Subtitle>
-                            Product description
-                        </ListItem.Subtitle>
-                        <View style={styles.buttonContainer}>
-                            <Button 
-                                icon={<Icon name='plus' type='font-awesome' color='#ffffff' />} 
-                                buttonStyle={{ marginRight: 8 }}
-                                onPress={e => handleAddQty(e)}
-                            />
-                            <Button 
-                                icon={<Icon name='minus' type='font-awesome' color='#ffffff' />} 
-                                buttonStyle={{ backgroundColor: '#E53935' }}
-                                onPress={e => handleSubtractQty(e)}
-                            />
-                            <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 16 }}>QTY: {qty}</Text>
-                        </View>
-                    </ListItem.Content>
-                </ListItem>
-                <ListItem bottomDivider>
-                    <ListItem.Content>
-                        <ListItem.Title>Product 2</ListItem.Title>
-                        <ListItem.Subtitle>Product description</ListItem.Subtitle>
-                    </ListItem.Content>
-                </ListItem>
-                <ListItem bottomDivider>
-                    <ListItem.Content>
-                        <ListItem.Title>Product 3</ListItem.Title>
-                        <ListItem.Subtitle>Product description</ListItem.Subtitle>
-                    </ListItem.Content>
-                </ListItem>
+                {cartItems.map(item => (
+                    <ListItem bottomDivider key={item.id}>
+                        <ListItem.Content>
+                            <ListItem.Title>{item.name}</ListItem.Title>
+                            <ListItem.Subtitle>
+                                {item.description}
+                            </ListItem.Subtitle>
+                            <View style={styles.buttonContainer}>
+                                <Button 
+                                    icon={<Icon name='plus' type='font-awesome' color='#ffffff' />} 
+                                    buttonStyle={{ marginRight: 8 }}
+                                    onPress={e => handleAddQty(e)}
+                                />
+                                <Button 
+                                    icon={<Icon name='minus' type='font-awesome' color='#ffffff' />} 
+                                    buttonStyle={{ backgroundColor: '#E53935' }}
+                                    onPress={e => handleSubtractQty(e)}
+                                />
+                                <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 16 }}>QTY: {qty}</Text>
+                            </View>
+                        </ListItem.Content>
+                    </ListItem>
+                ))}
             </View>
             <View style={styles.formContainer}>
                 <Text style={{ fontWeight: 'bold', fontSize: 20 }}>TOTAL: PHP 900.00</Text>
                 <Button 
-                    buttonStyle={{borderRadius: 5, marginTop: 10, backgroundColor: '#E57373'}}
+                    buttonStyle={{borderRadius: 5, marginTop: 10, backgroundColor: '#039BE5'}}
                     onPress={() => navigation.navigate('HomeScreen')} 
                     title="Checkout" 
+                />
+                <Button 
+                    buttonStyle={{borderRadius: 5, marginTop: 10, backgroundColor: '#C62828'}}
+                    onPress={() => navigation.navigate('HomeScreen')} 
+                    title="Back to Home" 
                 />
             </View>
         </View>
     );
-}
+})
 
 export default CartScreen;
 
