@@ -8,24 +8,9 @@ import { observer } from 'mobx-react-lite'
 
 const CartScreen = observer(() => {
     const navigation = useNavigation();
-    const [qty, setQty] = useState(1);
 
     const { cartStore } = useStore();
     const { cartItems } = cartStore;
-
-    const handleAddQty = (e) => {
-        e.preventDefault();
-        let i = qty;
-        console.log(++i)
-        setQty(i);
-    }
-
-    const handleSubtractQty = (e) => {
-        e.preventDefault();
-        let i = qty;
-        console.log(--i)
-        setQty(i);
-    }
 
     return(
         <View style={styles.container}>
@@ -42,14 +27,14 @@ const CartScreen = observer(() => {
                                 <Button 
                                     icon={<Icon name='plus' type='font-awesome' color='#ffffff' />} 
                                     buttonStyle={{ marginRight: 8 }}
-                                    onPress={e => handleAddQty(e)}
+                                    // onPress={e => handleAddQty(e)}
                                 />
                                 <Button 
                                     icon={<Icon name='minus' type='font-awesome' color='#ffffff' />} 
                                     buttonStyle={{ backgroundColor: '#E53935' }}
-                                    onPress={e => handleSubtractQty(e)}
+                                    // onPress={e => handleSubtractQty(e)}
                                 />
-                                <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 16 }}>QTY: {qty}</Text>
+                                <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 16 }}>QTY: {item.qty}</Text>
                             </View>
                         </ListItem.Content>
                     </ListItem>

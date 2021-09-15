@@ -41,7 +41,7 @@ const HomeScreen = observer(() => {
                                     icon={<Icon name='shopping-cart' color='#ffffff' />}
                                     buttonStyle={{borderRadius: 5, marginLeft: 0, marginRight: 0, marginBottom: 0}}
                                     title='Add to Cart'
-                                    onPress={() => addCartItem(item)} 
+                                    onPress={() => addCartItem(item)}
                                 />
                         </Card>
                     ))}
