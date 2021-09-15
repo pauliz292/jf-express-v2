@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button, Icon, ListItem } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
@@ -10,7 +10,27 @@ const CartScreen = observer(() => {
     const navigation = useNavigation();
 
     const { cartStore } = useStore();
-    const { cartItems } = cartStore;
+    const { 
+        cartItems, 
+        addItemQty, 
+        subtractItemQty, 
+        cartTotalPrice,
+        getTotalAmount, 
+    } = cartStore;
+
+    useEffect(() => {
+        getTotalAmount();
+    }, [])
+
+    const handleAddQty = id => {
+        addItemQty(id);
+        getTotalAmount();
+    }
+
+    const handleSubtractQty = id => {
+        subtractItemQty(id);
+        getTotalAmount();
+    }
 
     return(
         <View style={styles.container}>
@@ -23,16 +43,19 @@ const CartScreen = observer(() => {
                             <ListItem.Subtitle>
                                 {item.description}
                             </ListItem.Subtitle>
+                            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+                                {item.totalPrice == 0 ? item.price : item.totalPrice}
+                            </Text>
                             <View style={styles.buttonContainer}>
                                 <Button 
                                     icon={<Icon name='plus' type='font-awesome' color='#ffffff' />} 
                                     buttonStyle={{ marginRight: 8 }}
-                                    // onPress={e => handleAddQty(e)}
+                                    onPress={() => handleAddQty(item.id)}
                                 />
                                 <Button 
                                     icon={<Icon name='minus' type='font-awesome' color='#ffffff' />} 
                                     buttonStyle={{ backgroundColor: '#E53935' }}
-                                    // onPress={e => handleSubtractQty(e)}
+                                    onPress={() => handleSubtractQty(item.id)}
                                 />
                                 <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 16 }}>QTY: {item.qty}</Text>
                             </View>
@@ -41,7 +64,7 @@ const CartScreen = observer(() => {
                 ))}
             </View>
             <View style={styles.formContainer}>
-                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>TOTAL: PHP 900.00</Text>
+                <Text style={{ fontWeight: 'bold', fontSize: 20 }}>TOTAL: PHP {cartTotalPrice}</Text>
                 <Button 
                     buttonStyle={{borderRadius: 5, marginTop: 10, backgroundColor: '#039BE5'}}
                     onPress={() => navigation.navigate('HomeScreen')} 

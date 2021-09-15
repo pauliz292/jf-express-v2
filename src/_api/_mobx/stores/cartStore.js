@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 import { makeAutoObservable } from "mobx";
 
 
@@ -12,6 +12,7 @@ export default class CartStore {
         'totalPrice': 0,
         'qty': 0,
     }
+    cartTotalPrice = 0;
 
     constructor() {
         makeAutoObservable(this);
@@ -32,11 +33,35 @@ export default class CartStore {
         let tempItem = items.find(i => i.id === this.cartItem.id)
         if (!tempItem) {
             items.push(this.cartItem);
+            this.cartTotalPrice = this.cartItem.price;
         } else {
-            ++tempItem.qty
-            tempItem.totalPrice = tempItem.price * tempItem.qty
+            ++tempItem.qty;
+            tempItem.totalPrice = tempItem.price * tempItem.qty;
         }
 
         this.cartItems = items;
+    }
+
+    addItemQty = id => {
+        let item = this.cartItems.find(i => i.id === id);
+        if (item) {
+            ++item.qty;
+            item.totalPrice = item.price * item.qty;
+        }
+    }
+
+    subtractItemQty = id => {
+        let item = this.cartItems.find(i => i.id === id);
+        if (item) {
+            --item.qty;
+            item.totalPrice = item.price * item.qty;
+        }
+    }
+
+    getTotalAmount = () => {
+        let total = this.cartItems.reduce(function(prev, cur) {
+            return prev + cur.totalPrice;
+        }, 0);
+        return this.cartTotalPrice = total;
     }
 }
