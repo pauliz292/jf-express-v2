@@ -67,7 +67,7 @@ const CartScreen = observer(() => {
                 <Text style={{ fontWeight: 'bold', fontSize: 20 }}>TOTAL: PHP {cartTotalPrice}</Text>
                 <Button 
                     buttonStyle={{borderRadius: 5, marginTop: 10, backgroundColor: '#039BE5'}}
-                    onPress={() => navigation.navigate('HomeScreen')} 
+                    onPress={() => navigation.navigate('CheckoutScreen')} 
                     title="Checkout" 
                 />
                 <Button 
