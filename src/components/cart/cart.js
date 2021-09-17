@@ -9,7 +9,7 @@ import { observer } from 'mobx-react-lite'
 const CartScreen = observer(() => {
     const navigation = useNavigation();
 
-    const { cartStore } = useStore();
+    const { cartStore, checkoutStore } = useStore();
     const { 
         cartItems, 
         addItemQty, 
@@ -17,6 +17,8 @@ const CartScreen = observer(() => {
         cartTotalPrice,
         getTotalAmount, 
     } = cartStore;
+
+    const { mapProducts, mapTotalAmount } = checkoutStore;
 
     useEffect(() => {
         getTotalAmount();
@@ -30,6 +32,12 @@ const CartScreen = observer(() => {
     const handleSubtractQty = id => {
         subtractItemQty(id);
         getTotalAmount();
+    }
+
+    const handleCheckout = () => {
+        navigation.navigate('CheckoutScreen');
+        mapProducts(cartItems);
+        mapTotalAmount(cartTotalPrice);
     }
 
     return(
@@ -67,7 +75,7 @@ const CartScreen = observer(() => {
                 <Text style={{ fontWeight: 'bold', fontSize: 20 }}>TOTAL: PHP {cartTotalPrice}</Text>
                 <Button 
                     buttonStyle={{borderRadius: 5, marginTop: 10, backgroundColor: '#039BE5'}}
-                    onPress={() => navigation.navigate('CheckoutScreen')} 
+                    onPress={() => handleCheckout()} 
                     title="Checkout" 
                 />
                 <Button 
