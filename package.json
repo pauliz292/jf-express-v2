@@ -17,6 +17,7 @@
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
     "formik": "^2.2.9",
+    "jwt-decode": "^3.1.2",
     "mobx": "^6.3.3",
     "mobx-react": "^7.2.0",
     "moment": "^2.29.1",
@@ -28,6 +29,7 @@
     "react-native-reanimated": "^2.2.1",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.4.0",
+    "react-native-toast-message": "^1.6.0",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",
     "yup": "^0.32.9"
