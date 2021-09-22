@@ -9,7 +9,8 @@ import { observer } from 'mobx-react-lite'
 const CartScreen = observer(() => {
     const navigation = useNavigation();
 
-    const { cartStore, checkoutStore } = useStore();
+    const { cartStore, checkoutStore, commonStore } = useStore();
+    const { token } = commonStore;
     const { 
         cartItems, 
         addItemQty, 
@@ -35,9 +36,13 @@ const CartScreen = observer(() => {
     }
 
     const handleCheckout = () => {
-        navigation.navigate('CheckoutScreen');
-        mapProducts(cartItems);
-        mapTotalAmount(cartTotalPrice);
+        if (token) {
+            navigation.navigate('CheckoutScreen');
+            mapProducts(cartItems);
+            mapTotalAmount(cartTotalPrice);
+        } else {
+            navigation.navigate('LoginScreen');
+        }
     }
 
     return(

@@ -7,10 +7,13 @@ const orderString =  Math.random().toString(36).substring(2, 10);
 export default class CheckoutStore {
     transaction = {
         'products': [],
-        'totalAmount': 900,
+        'totalAmount': 0,
         'customer': "",
         'date': moment(dateToday).format("DD/MM/YYYY"),
         'orderNumber': orderString,
+        'deliveryAddress': "",
+        'contactInfo': "",
+        'note': ""
     }
 
     constructor() {

@@ -3,18 +3,18 @@ import http from "./httpService";
 import jwt_decode from "jwt-decode";
 import { apiUrl } from "../config.json";
 
-const apiEndpoint = apiUrl + "/auth";
+const apiEndpoint = apiUrl + "/account";
 const tokenKey = "ACS-6867282b-b5a0-49ae-b8b3-68bc66e1a362";
 
 http.setJwt(getJwt());
 
-export async function login(email, password) {
+export async function login(username, password) {
     const { data: jwt } = await http.post(apiEndpoint + "/login", {
-        email,
+        username,
         password
     });
-
-    AsyncStorage.setItem(tokenKey, jwt.token);
+    
+    return jwt;
 }
 
 export async function signUp(values) {
@@ -26,7 +26,7 @@ export async function signUp(values) {
         lastName: values.lastName
     });
 
-    AsyncStorage.setItem(tokenKey, jwt.token);
+    return jwt;
 }
 
 export function loginWithJwt(jwt) {
@@ -37,9 +37,8 @@ export function logout() {
     AsyncStorage.removeItem(tokenKey);
 }
 
-export function getCurrentUser() {
+export function getCurrentUser(jwt) {
     try {
-        const jwt = AsyncStorage.getItem(tokenKey);
         const user = jwt_decode(jwt);
 
         return user;

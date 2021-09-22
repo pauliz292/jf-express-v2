@@ -8,10 +8,15 @@ import { useNavigation } from '@react-navigation/native'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { observer } from "mobx-react-lite"
+import { useStore } from '../../_api/_mobx/stores/store'
 import * as authService from '../../_api/_services/authService'
 
 const SignUpScreen = observer(() => {
     const navigation = useNavigation();
+
+    const { commonStore } = useStore();
+    const { setToken } = commonStore;
+
     const SignupSchema = Yup.object().shape({
         username: Yup.string().required('Required'),
         email: Yup.string().required('Required'),
@@ -39,8 +44,22 @@ const SignUpScreen = observer(() => {
                                 bottomOffset: 40,
                             })
                         } else {
-                            console.log("Sign Up: ", values);
-                            authService.signUp(values);
+                            authService.signUp(values)
+                                .then(data => {
+                                    Toast.show({
+                                        type:'success',
+                                        text1: "Success",
+                                        text2: "You have successfully registered your account.",
+                                        visibilityTime: 8000,
+                                        autoHide: true,
+                                        topOffset: 80,
+                                        bottomOffset: 40,
+                                    })
+                                    const { token } = data;
+                                    setToken(token);
+                                    navigation.navigate('HomeScreen')
+                                })
+                                .catch(err => console.log("Error on register.", err));
                         }
                     }}
                 >

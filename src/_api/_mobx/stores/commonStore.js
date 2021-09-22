@@ -1,12 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { makeAutoObservable, reaction } from "mobx";
 
+
 export default class CommonStore {
     isLoggedIn = false
 
     email = null
 
-    user = undefined
+    user = "user@jfexpress.com"
 
     profileData = null
 

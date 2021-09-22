@@ -10,6 +10,9 @@ import ProfileScreen from '../components/profile/profile'
 import ActivityScreen from '../components/activity/activity'
 import CartScreen from '../components/cart/cart'
 import CheckoutScreen from '../components/cart/checkout'
+import WelcomeScreen from '../screens/welcomeScreen'
+import SettingsScreen from '../screens/settingsScreen'
+
 
 const HomeStack = createStackNavigator();
 const HomeStackScren = () => (
@@ -17,6 +20,7 @@ const HomeStackScren = () => (
         <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
         <HomeStack.Screen name="CartScreen" component={CartScreen} />
         <HomeStack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+        <HomeStack.Screen name="WelcomeScreen" component={WelcomeScreen} />
     </HomeStack.Navigator>
 )
 
@@ -48,6 +52,13 @@ const ActivityStackScreen = () => (
     </ActivityStack.Navigator>
 )
 
+const SettingsStack = createStackNavigator();
+const SettingsStackScreen = () => (
+    <SettingsStack.Navigator screenOptions={{ headerShown: false }}>
+        <SettingsStack.Screen name="SettingsScreen" component={SettingsScreen} />
+    </SettingsStack.Navigator>
+)
+
 const Drawer = createDrawerNavigator();
 
 export default function HomeNavigation () {
@@ -65,6 +76,7 @@ export default function HomeNavigation () {
                 <Drawer.Screen name="Home" component={HomeStackScren} />
                 <Drawer.Screen name="Profile" component={ProfileStackScren} />
                 <Drawer.Screen name="Activity" component={ActivityStackScreen} />
+                <Drawer.Screen name="Settings" component={SettingsStackScreen} />
                 <Drawer.Screen name="Login" component={AuthStackScren} />
             </Drawer.Navigator>
             
