@@ -12,6 +12,7 @@ import CartScreen from '../components/cart/cart'
 import CheckoutScreen from '../components/cart/checkout'
 import WelcomeScreen from '../screens/welcomeScreen'
 import SettingsScreen from '../screens/settingsScreen'
+import ConfirmOrderScreen from '../components/cart/confirmOrder'
 
 
 const HomeStack = createStackNavigator();
@@ -20,6 +21,7 @@ const HomeStackScren = () => (
         <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
         <HomeStack.Screen name="CartScreen" component={CartScreen} />
         <HomeStack.Screen name="CheckoutScreen" component={CheckoutScreen} />
+        <HomeStack.Screen name="ConfirmOrderScreen" component={ConfirmOrderScreen} />
         <HomeStack.Screen name="WelcomeScreen" component={WelcomeScreen} />
     </HomeStack.Navigator>
 )
