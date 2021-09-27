@@ -10,7 +10,7 @@ export default class CheckoutStore {
         'totalAmount': 0,
         'customer': "",
         'date': moment(dateToday).format("DD/MM/YYYY"),
-        'orderNumber': orderString,
+        'orderNumber': orderString.toUpperCase(),
         'deliveryAddress': "",
         'contactInfo': "",
         'note': ""
@@ -26,5 +26,20 @@ export default class CheckoutStore {
 
     mapTotalAmount = amount => {
         return this.transaction.totalAmount = amount;
+    }
+
+    createTransaction = value => {
+        let transaction = {
+            'products': value.products,
+            'totalAmount': value.totalAmount,
+            'customer': value.customer,
+            'date': value.date,
+            'orderNumber': value.orderNumber,
+            'deliveryAddress': value.deliveryAddress,
+            'contactInfo': value.contactInfo,
+            'note': value.note
+        }
+        
+        this.transaction = transaction;
     }
 }
