@@ -1,6 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
-import { StyleSheet } from 'react-native'
+import { View, StyleSheet, Image } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Toast from 'react-native-toast-message'
@@ -25,6 +24,10 @@ const LoginScreen = observer(() => {
 
     return(
         <View style={styles.container}>
+            <Image
+                style={styles.logo}
+                source={require('../../../assets/splash.png')}
+            />
             <Formik 
                 initialValues={{ username: '', password: '' }}
                 validationSchema={SignupSchema}
@@ -41,8 +44,15 @@ const LoginScreen = observer(() => {
                                 bottomOffset: 40,
                             })
                             const { token } = data;
-                            setToken(token);
-                            navigation.navigate('HomeScreen')
+                            const loggedInUser = authService.getCurrentUser(token);
+                            const { role } = loggedInUser;
+                            if (role == 'Admin') {
+                                setToken(token);
+                                navigation.navigate('ProductListScreen')
+                            } else {
+                                setToken(token);
+                                navigation.navigate('HomeScreen')
+                            }
                         })
                         .catch(err => {
                             console.log("Error on loggin in.", err);
@@ -117,14 +127,19 @@ const styles = StyleSheet.create({
     },
     formContainer: {
         width: '80%',
-        alignContent: 'center'
+        alignContent: 'center',
     },
     form: {
-        backgroundColor: '#eeeeee',
+        backgroundColor: '#CFD8DC',
         borderRadius: 15,
         padding: 10,
     },
     buttonContainer: {
         padding: 10
+    },
+    logo: {
+        width: '70%',
+        height: 50,
+        marginBottom: 30,
     }
 });

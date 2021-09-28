@@ -177,11 +177,11 @@ const styles = StyleSheet.create({
         alignContent: 'center'
     },
     form: {
-        backgroundColor: '#eeeeee',
+        backgroundColor: '#CFD8DC',
         borderRadius: 15,
         padding: 10,
     },
     buttonContainer: {
         padding: 10
-    }
+    },
 });

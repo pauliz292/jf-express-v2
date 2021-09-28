@@ -13,6 +13,8 @@ import CheckoutScreen from '../components/cart/checkout'
 import WelcomeScreen from '../screens/welcomeScreen'
 import SettingsScreen from '../screens/settingsScreen'
 import ConfirmOrderScreen from '../components/cart/confirmOrder'
+import ProductListScreen from '../components/product/productList'
+import AddProductScreen from '../components/product/addProduct'
 
 
 const HomeStack = createStackNavigator();
@@ -36,6 +38,20 @@ const AuthStackScren = () => (
             options={{
                 title: "Sign Up"
             }} 
+        />
+        <AuthStack.Screen 
+            name="ProductListScreen" 
+            component={ProductListScreen} 
+            options={{
+                title: "Products"
+            }}
+        />
+        <AuthStack.Screen 
+            name="AddProductScreen" 
+            component={AddProductScreen} 
+            options={{
+                title: "Products"
+            }}
         />
     </AuthStack.Navigator>
 )

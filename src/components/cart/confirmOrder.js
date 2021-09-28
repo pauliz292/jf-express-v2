@@ -13,7 +13,7 @@ const ConfirmOrderScreen = observer(() => {
 
     return(
         <View style={styles.container}>
-            <Text style={styles.title}>Confirm Order</Text>
+            <Text style={styles.title}>Your Order has been Placed</Text>
             <View style={styles.listContainer}>
                 <ListItem>
                     <ListItem.Content>
@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 15,
         marginBottom: 15,
+        color: '#D32F2F'
     },
     listContainer: {
         margin: 5,
