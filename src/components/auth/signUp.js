@@ -71,39 +71,18 @@ const SignUpScreen = observer(() => {
                                     onBlur={handleBlur('username')}
                                     value={values.username}
                                     placeholder='Username'
-                                    leftIcon={
-                                        <Icon
-                                            name='code'
-                                            size={24}
-                                            color='#03A9F4'
-                                        />
-                                    }
                                 />
                                 <Input
                                     onChangeText={handleChange('email')}
                                     onBlur={handleBlur('email')}
                                     value={values.email}
                                     placeholder='Email'
-                                    leftIcon={
-                                        <Icon
-                                            name='user'
-                                            size={24}
-                                            color='#03A9F4'
-                                        />
-                                    }
                                 />
                                 <Input
                                     onChangeText={handleChange('password')}
                                     onBlur={handleBlur('password')}
                                     value={values.password}
                                     placeholder='Password'
-                                    leftIcon={
-                                        <Icon
-                                            name='key'
-                                            size={24}
-                                            color='#03A9F4'
-                                        />
-                                    }
                                     secureTextEntry={true}
                                 />
                                 <Input
@@ -111,13 +90,6 @@ const SignUpScreen = observer(() => {
                                     onBlur={handleBlur('confirmPassword')}
                                     value={values.confirmPassword}
                                     placeholder='Confirm Password'
-                                    leftIcon={
-                                        <Icon
-                                            name='key'
-                                            size={24}
-                                            color='#03A9F4'
-                                        />
-                                    }
                                     secureTextEntry={true}
                                 />
                                 <Input
@@ -125,26 +97,12 @@ const SignUpScreen = observer(() => {
                                     onBlur={handleBlur('firstName')}
                                     value={values.firstName}
                                     placeholder='First Name'
-                                    leftIcon={
-                                        <Icon
-                                            name='tag'
-                                            size={24}
-                                            color='#03A9F4'
-                                        />
-                                    }
                                 />
                                 <Input
                                     onChangeText={handleChange('lastName')}
                                     onBlur={handleBlur('lastName')}
                                     value={values.lastName}
                                     placeholder='Last Name'
-                                    leftIcon={
-                                        <Icon
-                                            name='tag'
-                                            size={24}
-                                            color='#03A9F4'
-                                        />
-                                    }
                                 />
                                 <View style={styles.buttonContainer}>
                                     <Button title="Sign Up" onPress={() => handleSubmit()}/>
@@ -177,7 +135,7 @@ const styles = StyleSheet.create({
         alignContent: 'center'
     },
     form: {
-        backgroundColor: '#CFD8DC',
+        backgroundColor: '#eee',
         borderRadius: 15,
         padding: 10,
     },

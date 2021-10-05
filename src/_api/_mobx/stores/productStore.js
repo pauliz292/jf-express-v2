@@ -1,5 +1,5 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
 import { makeAutoObservable } from "mobx"
+import * as _service from '../../_services/productService'
 
 const products = [
     {'id': 1, 'name': "Meat", 'description': "Frozen Meat", 'Qty': 0, 'price': 100},
@@ -16,4 +16,7 @@ export default class ProductStore {
         makeAutoObservable(this);
     }
 
+    setProducts = () => {
+        this.products = values;
+    }
 }

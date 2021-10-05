@@ -39,7 +39,6 @@ const CheckoutScreen = observer(() => {
             initialValues={{ deliveryAddress: '', note: '', contactInfo: '' }}
             validationSchema={ValidationSchema}
             onSubmit={values => {
-                console.log(values)
                 let obj = {
                     'products': cartItems,
                     'totalAmount': transaction.totalAmount,

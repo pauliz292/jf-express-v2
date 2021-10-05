@@ -5,7 +5,6 @@ import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react-lite'
 import { useStore } from '../_api/_mobx/stores/store'
 
-
 const HomeScreen = observer(() => {
     const navigation = useNavigation();
 
