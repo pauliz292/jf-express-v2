@@ -9,6 +9,7 @@ import LoginScreen from '../components/auth/login'
 import ProfileScreen from '../components/profile/profile'
 import ActivityScreen from '../components/activity/activity'
 import CartScreen from '../components/cart/cart'
+import CartAuthScreen from '../components/cart/cartAuth'
 import CheckoutScreen from '../components/cart/checkout'
 import WelcomeScreen from '../screens/welcomeScreen'
 import SettingsScreen from '../screens/settingsScreen'
@@ -22,6 +23,7 @@ const HomeStackScren = () => (
     <HomeStack.Navigator screenOptions={{ headerShown: false }}>
         <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
         <HomeStack.Screen name="CartScreen" component={CartScreen} />
+        <HomeStack.Screen name="CartAuthScreen" component={CartAuthScreen} />
         <HomeStack.Screen name="CheckoutScreen" component={CheckoutScreen} />
         <HomeStack.Screen name="ConfirmOrderScreen" component={ConfirmOrderScreen} />
         <HomeStack.Screen name="WelcomeScreen" component={WelcomeScreen} />

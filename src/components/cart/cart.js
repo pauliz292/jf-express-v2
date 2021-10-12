@@ -36,13 +36,9 @@ const CartScreen = observer(() => {
     }
 
     const handleCheckout = () => {
-        if (token) {
-            navigation.navigate('CheckoutScreen');
-            mapProducts(cartItems);
-            mapTotalAmount(cartTotalPrice);
-        } else {
-            navigation.navigate('LoginScreen');
-        }
+        navigation.navigate('CartAuthScreen');
+        mapProducts(cartItems);
+        mapTotalAmount(cartTotalPrice);
     }
 
     return(
