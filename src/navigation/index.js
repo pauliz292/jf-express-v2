@@ -16,7 +16,7 @@ import SettingsScreen from '../screens/settingsScreen'
 import ConfirmOrderScreen from '../components/cart/confirmOrder'
 import ProductListScreen from '../components/product/productList'
 import AddProductScreen from '../components/product/addProduct'
-
+import Apply from '../components/apply/apply'
 
 const HomeStack = createStackNavigator();
 const HomeStackScren = () => (
@@ -97,6 +97,7 @@ export default function HomeNavigation () {
                 <Drawer.Screen name="Profile" component={ProfileStackScren} />
                 <Drawer.Screen name="Activity" component={ActivityStackScreen} />
                 <Drawer.Screen name="Settings" component={SettingsStackScreen} />
+                <Drawer.Screen name="Apply" component={Apply} />
                 <Drawer.Screen name="Login" component={AuthStackScren} />
             </Drawer.Navigator>
             
