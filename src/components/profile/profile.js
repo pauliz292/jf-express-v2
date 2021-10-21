@@ -1,8 +1,11 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
-import { Button, Avatar, ListItem, Icon } from "react-native-elements";
+import { Button, Avatar, ListItem, Icon } from 'react-native-elements'
+import { useNavigation } from '@react-navigation/native'
 
 const ProfileScreen = () => {
+    const navigation = useNavigation();
+
     return(
         <View style={styles.container}>
             <Text style={styles.title}>Paulo Rodriguez</Text>
@@ -31,6 +34,7 @@ const ProfileScreen = () => {
                                 />
                             }
                             buttonStyle={{ marginRight: 10 }}
+                            onPress={() => navigation.navigate('EditProfileScreen')}
                         />
                         <Button 
                             icon={

@@ -1,5 +1,5 @@
 import React from "react";
-import { View,  ScrollView, Alert } from "react-native";
+import { View,  ScrollView, Alert, StyleSheet } from "react-native";
 import { ListItem, } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -37,7 +37,7 @@ const ActivityScreen = () => {
 
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
-      <View>
+      <View style={styles.container}>
         {list.map((item, i) => (
           <ListItem key={i} bottomDivider onPress={()=>Alert.alert("Transaction History")}>
             <Icon name={item.icon} style={{ color: "#03A9F4", fontSize: 24 }} />
@@ -54,3 +54,11 @@ const ActivityScreen = () => {
 };
 
 export default ActivityScreen;
+
+const styles = StyleSheet.create({
+  container: {
+      flex: 1,
+      width: '100%',
+      padding: 10,
+  },
+});

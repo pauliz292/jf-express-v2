@@ -2,12 +2,11 @@ import React from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import Toast from 'react-native-toast-message'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import { useNavigation } from '@react-navigation/native'
 
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import { observer } from "mobx-react-lite"
+import { observer } from 'mobx-react-lite'
 import { useStore } from '../../_api/_mobx/stores/store'
 import * as authService from '../../_api/_services/authService'
 

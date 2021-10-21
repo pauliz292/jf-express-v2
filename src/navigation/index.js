@@ -7,6 +7,7 @@ import HomeScreen from '../screens/homeScreen'
 import SignUpScreen from '../components/auth/signUp'
 import LoginScreen from '../components/auth/login'
 import ProfileScreen from '../components/profile/profile'
+import EditProfileScreen from '../components/profile/editProfile'
 import ActivityScreen from '../components/activity/activity'
 import CartScreen from '../components/cart/cart'
 import CartAuthScreen from '../components/cart/cartAuth'
@@ -62,6 +63,7 @@ const ProfileStack = createStackNavigator();
 const ProfileStackScren = () => (
     <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
         <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <ProfileStack.Screen name="EditProfileScreen" component={EditProfileScreen} />
     </ProfileStack.Navigator>
 )
 
