@@ -18,6 +18,7 @@ import ConfirmOrderScreen from '../components/cart/confirmOrder'
 import ProductListScreen from '../components/product/productList'
 import AddProductScreen from '../components/product/addProduct'
 import Apply from '../components/apply/apply'
+import TransactionHistoryScreen from '../components/activity/transactionHistory'
 
 const HomeStack = createStackNavigator();
 const HomeStackScren = () => (
@@ -71,6 +72,7 @@ const ActivityStack = createStackNavigator();
 const ActivityStackScreen = () => (
     <ActivityStack.Navigator screenOptions={{ headerShown: false }}>
         <ActivityStack.Screen name="ActivityScreen" component={ActivityScreen} />
+        <ActivityStack.Screen name="TransactionHistoryScreen" component={TransactionHistoryScreen} />
     </ActivityStack.Navigator>
 )
 
