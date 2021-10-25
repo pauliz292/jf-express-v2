@@ -4,6 +4,7 @@ import CommonStore from "./commonStore";
 import ProductStore from "./productStore";
 import CartStore from "./cartStore";
 import CheckoutStore from "./checkoutStore";
+import ProfileStore from "./profileStore";
 
 export const store = {
     commonStore: new CommonStore(),
@@ -11,6 +12,7 @@ export const store = {
     productStore: new ProductStore(),
     cartStore: new CartStore(),
     checkoutStore: new CheckoutStore(),
+    profileStore: new ProfileStore(),
 };
 
 export const StoreContext = createContext(store);
