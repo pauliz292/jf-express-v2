@@ -14,11 +14,9 @@ const ProfileScreen = observer(() => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        {profile.map((value) => (
           <Text>
-            {value.firstName} {value.lastName}
+            {profile.firstName} {profile.lastName}
           </Text>
-        ))}
       </Text>
       <View style={styles.profile}>
         <Avatar
@@ -34,15 +32,11 @@ const ProfileScreen = observer(() => {
           <ListItem.Content>
             <ListItem.Title>
               Email:{" "}
-              {profile.map((value) => (
-                <Text>{value.email}</Text>
-              ))}
+                <Text>{profile.email}</Text>
             </ListItem.Title>
             <ListItem.Subtitle>
               Contact:{" "}
-              {profile.map((value) => (
-                <Text>{value.contact}</Text>
-              ))}
+                <Text>{profile.contact}</Text>
             </ListItem.Subtitle>
             <View style={styles.buttonContainer}>
               <Button

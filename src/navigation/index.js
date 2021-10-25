@@ -17,7 +17,8 @@ import SettingsScreen from '../screens/settingsScreen'
 import ConfirmOrderScreen from '../components/cart/confirmOrder'
 import ProductListScreen from '../components/product/productList'
 import AddProductScreen from '../components/product/addProduct'
-import Apply from '../components/apply/apply'
+import ApplyAuth from '../components/apply/apply'
+import ApplyScreen from '../components/apply/applyScreen'
 import TransactionHistoryScreen from '../components/activity/transactionHistory'
 
 const HomeStack = createStackNavigator();
@@ -83,6 +84,14 @@ const SettingsStackScreen = () => (
     </SettingsStack.Navigator>
 )
 
+const ApplyStack = createStackNavigator();
+const ApplyStackScreen = () => (
+    <ApplyStack.Navigator screenOptions={{ headerShown: false }}>
+        <ApplyStack.Screen name="ApplyAuth" component={ApplyAuth} />
+        <ApplyStack.Screen name="ApplyScreen" component={ApplyScreen} />
+    </ApplyStack.Navigator>
+)
+
 const Drawer = createDrawerNavigator();
 
 export default function HomeNavigation () {
@@ -101,7 +110,7 @@ export default function HomeNavigation () {
                 <Drawer.Screen name="Profile" component={ProfileStackScren} />
                 <Drawer.Screen name="Activity" component={ActivityStackScreen} />
                 <Drawer.Screen name="Settings" component={SettingsStackScreen} />
-                <Drawer.Screen name="Apply" component={Apply} />
+                <Drawer.Screen name="Apply" component={ApplyStackScreen} />
                 <Drawer.Screen name="Login" component={AuthStackScren} />
             </Drawer.Navigator>
             
