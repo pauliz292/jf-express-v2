@@ -11,7 +11,7 @@ import * as authService from "../../_api/_services/authService";
 
 const ApplyAuth = observer(() => {
   const { commonStore } = useStore();
-  const { setToken } = commonStore;
+  const { setToken, setUser } = commonStore;
 
   const navigation = useNavigation();
 
@@ -30,6 +30,7 @@ const ApplyAuth = observer(() => {
             authService
               .login(values.username, values.password)
               .then((data) => {
+                setUser(data);
                 const { token } = data;
                 setToken(token);
                 navigation.navigate('ApplyScreen');

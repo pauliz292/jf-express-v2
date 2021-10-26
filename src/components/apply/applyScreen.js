@@ -2,19 +2,19 @@ import React from "react";
 import { View, StyleSheet, Image, Text } from "react-native";
 import { Button, Input } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
-//import Toast from 'react-native-toast-message'
 import { useNavigation } from '@react-navigation/native'
-//import * as authService from '../../_api/_services/authService'
+import * as driverService from '../../_api/_services/driverService'
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { NavigationContainer } from "@react-navigation/native";
-//import { observer } from 'mobx-react-lite'
-//import { useStore } from "../../_api/_mobx/stores/store";
+import { observer } from 'mobx-react-lite'
+import { useStore } from "../../_api/_mobx/stores/store";
 
-const ApplyScreen = () => {
+const ApplyScreen = observer(() => {
   const navigation = useNavigation();
-  // const { commonStore } = useStore();
-  //const { setToken } = commonStore;
+
+  const { commonStore } = useStore();
+  const { user } = commonStore;
+
   const ApplySchema = Yup.object().shape({
     licenseNumber: Yup.string().required("Required"),
     plateNumber: Yup.string().required("Required"),
@@ -26,7 +26,7 @@ const ApplyScreen = () => {
         initialValues={{ licenseNumber: "", plateNumber: "" }}
         validationSchema={ApplySchema}
         onSubmit={(values) => {
-          console.log(values)
+          driverService.apply(values, user.id)
         }}
       >
         {({
@@ -58,7 +58,6 @@ const ApplyScreen = () => {
                 onBlur={handleBlur("plateNumber")}
                 value={values.plateNumber}
                 leftIcon={<Icon name="barcode" size={24} color="#03A9F4" />}
-                secureTextEntry={true}
               />
               {errors.plateNumber && touched.plateNumber && (
                 <Text style={styles.errorText}>{errors.plateNumber}</Text>
@@ -79,7 +78,7 @@ const ApplyScreen = () => {
       </Formik>
     </View>
   );
-};
+});
 
 export default ApplyScreen;
 
