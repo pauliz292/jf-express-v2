@@ -1,13 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { makeAutoObservable, reaction } from "mobx";
+import { makeAutoObservable, reaction, runInAction } from "mobx";
 
 
 export default class CommonStore {
     isLoggedIn = false
 
-    email = null
+    email = ""
 
-    user = "user@jfexpress.com"
+    user = null
 
     profileData = null
 
@@ -39,14 +39,20 @@ export default class CommonStore {
     }
 
     setAppLoaded = () => {
-        this.appLoaded = true;
+        runInAction(() => {
+            this.appLoaded = true
+        });
     };
 
-    setIsLoggedIn(value) {
-        this.isLoggedIn = value
+    setIsLoggedIn = value => {
+        runInAction(() => {
+            this.isLoggedIn = value
+        });
     }
 
-    setUser(user) {
-        this.user = user
+    setUser = user => {
+        runInAction(() => {
+            this.user = user
+        });
     }
 }
