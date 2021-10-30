@@ -1,4 +1,4 @@
 {
-    "baseUrl": "http://localhost:5000",
-    "apiUrl": "http://localhost:5000/api"
+    "baseUrl": "https://jfexpress-api.dev.aquilasoftwares.com",
+    "apiUrl": "https://jfexpress-api.dev.aquilasoftwares.com/api"
 }
