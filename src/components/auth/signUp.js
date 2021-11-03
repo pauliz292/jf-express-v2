@@ -14,7 +14,7 @@ const SignUpScreen = observer(() => {
     const navigation = useNavigation();
 
     const { commonStore } = useStore();
-    const { setToken } = commonStore;
+    const { setToken, setUser } = commonStore;
 
     const SignupSchema = Yup.object().shape({
         username: Yup.string().required('Required'),
@@ -29,7 +29,7 @@ const SignUpScreen = observer(() => {
         <ScrollView style={styles.container}>
             <View style={{ alignItems: 'center', marginTop: 15 }}>
                 <Formik 
-                    initialValues={{ email: '', password: '' }}
+                    initialValues={{ email: '', password: '', confirmPassword: '' }}
                     validationSchema={SignupSchema}
                     onSubmit={values => {
                         if (values.password !== values.confirmPassword) {
@@ -54,6 +54,7 @@ const SignUpScreen = observer(() => {
                                         topOffset: 80,
                                         bottomOffset: 40,
                                     })
+                                    setUser(data);
                                     const { token } = data;
                                     setToken(token);
                                     navigation.navigate('HomeScreen')
