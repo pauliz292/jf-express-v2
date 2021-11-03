@@ -1,38 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Button, ListItem, Input } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { useStore } from '../../_api/_mobx/stores/store'
 import { observer } from 'mobx-react-lite'
+import { toJS } from 'mobx'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
-import * as authService from '../../_api/_services/authService'
+import * as transactionService from '../../_api/_services/transactionService'
 
 const CheckoutScreen = observer(() => {
     const { checkoutStore, commonStore, cartStore } = useStore();
     const { cartItems } = cartStore;
-    const { token } = commonStore;
+    const { user } = commonStore;
     const { transaction, createTransaction } = checkoutStore;
     const navigation = useNavigation();
-
-    const [user, setUser] = useState({});
 
     const ValidationSchema = Yup.object().shape({
         deliveryAddress: Yup.string().required('Required'),
         contactInfo: Yup.string().required('Required')
     });
-
-    useEffect(() => {
-        if(token){
-            let loggedInUser = authService.getCurrentUser(token);
-            if(loggedInUser != null) {
-                const { unique_name } = loggedInUser;
-                setUser(unique_name);
-            } else {
-                setUser(null);
-            }
-        }
-    }, [])
 
     const Form = () => (
         <Formik 
@@ -40,17 +27,34 @@ const CheckoutScreen = observer(() => {
             validationSchema={ValidationSchema}
             onSubmit={values => {
                 let obj = {
-                    'products': cartItems,
+                    'products': toJS(cartItems),
                     'totalAmount': transaction.totalAmount,
-                    'customer': user,
-                    'date': transaction.date,
+                    'customerId': user.id,
                     'orderNumber': transaction.orderNumber,
                     'deliveryAddress': values.deliveryAddress,
                     'contactInfo': values.contactInfo,
                     'note': values.note
                 }
-                createTransaction(obj)
-                navigation.navigate('ConfirmOrderScreen')
+                transactionService.addTransaction(obj)
+                    .then(res => {
+                        console.log(res)
+                        if (res == 200) {
+                            createTransaction(obj)
+                            navigation.navigate('ConfirmOrderScreen')
+                        }
+                        else {
+                            Toast.show({
+                                type: "error",
+                                text1: "Error on your transaction",
+                                text2: "Please try again later. If the issue persist contact customer support.",
+                                visibilityTime: 8000,
+                                autoHide: true,
+                                topOffset: 80,
+                                bottomOffset: 40,
+                            });
+                        }
+                    })
+                    .catch(err => console.log(err))
             }}
         >
             {({ 
