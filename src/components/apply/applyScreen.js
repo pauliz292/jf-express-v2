@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import * as driverService from '../../_api/_services/driverService'
 import { Formik } from "formik";
 import * as Yup from "yup";
+import Toast from 'react-native-toast-message'
 import { observer } from 'mobx-react-lite'
 import { useStore } from "../../_api/_mobx/stores/store";
 
@@ -27,6 +28,19 @@ const ApplyScreen = observer(() => {
         validationSchema={ApplySchema}
         onSubmit={(values) => {
           driverService.apply(values, user.id)
+            .then(res => {
+              Toast.show({
+                type:'success',
+                text1: "Success",
+                text2: `You have successfully applied as driver.`,
+                visibilityTime: 8000,
+                autoHide: true,
+                topOffset: 80,
+                bottomOffset: 40,
+              })
+              navigation.navigate('HomeScreen')
+            }) 
+            .catch(err => console.log(err))
         }}
       >
         {({

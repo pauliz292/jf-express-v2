@@ -21,7 +21,7 @@ export async function apply(values, userId) {
     })
     .then(res => {
         const { data } = res;
-        console.log("return data: ", data)
+        
         return data;
     })
     .catch(err => console.log(err))

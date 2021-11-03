@@ -15,7 +15,7 @@ const LoginScreen = observer(() => {
   const navigation = useNavigation();
 
   const { commonStore } = useStore();
-  const { setToken } = commonStore;
+  const { setToken, setUser } = commonStore;
 
   const SignupSchema = Yup.object().shape({
     username: Yup.string().required("Required"),
@@ -44,14 +44,14 @@ const LoginScreen = observer(() => {
                 topOffset: 80,
                 bottomOffset: 40,
               });
+              setUser(data)
               const { token } = data;
+              setToken(token);
               const loggedInUser = authService.getCurrentUser(token);
-              const { role } = loggedInUser;
-              if (role == "Admin") {
-                setToken(token);
+              const { unique_name } = loggedInUser;
+              if (unique_name == "admin") {
                 navigation.navigate("ProductListScreen");
               } else {
-                setToken(token);
                 navigation.navigate("HomeScreen");
               }
             })

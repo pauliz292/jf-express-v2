@@ -9,7 +9,7 @@ const CartScreen = observer(() => {
   const navigation = useNavigation();
 
   const { cartStore, checkoutStore, commonStore } = useStore();
-  const { token } = commonStore;
+  const { user } = commonStore;
   const {
     cartItems,
     addItemQty,
@@ -35,7 +35,7 @@ const CartScreen = observer(() => {
   };
 
   const handleCheckout = () => {
-    navigation.navigate("CartAuthScreen");
+    user ? navigation.navigate("CheckoutScreen") : navigation.navigate("CartAuthScreen");
     mapProducts(cartItems);
     mapTotalAmount(cartTotalPrice);
   };
@@ -50,6 +50,11 @@ const CartScreen = observer(() => {
               <ListItem.Content>
                 <ListItem.Title>{item.name}</ListItem.Title>
                 <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
+                {user ?
+                  <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+                    Customer: {`${user.firstName} ${user.lastName}`}
+                  </Text> : null
+                }
                 <Text style={{ fontSize: 16, fontWeight: "bold" }}>
                   {item.totalPrice == 0 ? item.price : item.totalPrice}
                 </Text>

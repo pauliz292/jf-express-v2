@@ -14,7 +14,7 @@ const CartAuthScreen = observer(() => {
     const navigation = useNavigation();
 
     const { commonStore } = useStore();
-    const { setToken } = commonStore;
+    const { setToken, setUser } = commonStore;
 
     const SignupSchema = Yup.object().shape({
         username: Yup.string().required('Required'),
@@ -43,6 +43,7 @@ const CartAuthScreen = observer(() => {
                                 bottomOffset: 40,
                             })
                             const { token } = data;
+                            setUser(data);
                             setToken(token);
                             navigation.navigate('CheckoutScreen')
                         })

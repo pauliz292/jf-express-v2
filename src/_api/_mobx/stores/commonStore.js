@@ -36,6 +36,7 @@ export default class CommonStore {
         AsyncStorage.removeItem("jwt");
         this.token = null;
         this.setIsLoggedIn(false);
+        this.user = null;
     }
 
     setAppLoaded = () => {
