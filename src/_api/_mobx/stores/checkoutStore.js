@@ -32,8 +32,7 @@ export default class CheckoutStore {
         let transaction = {
             'products': value.products,
             'totalAmount': value.totalAmount,
-            'customer': value.customer,
-            'date': value.date,
+            'customerId': value.customerId,
             'orderNumber': value.orderNumber,
             'deliveryAddress': value.deliveryAddress,
             'contactInfo': value.contactInfo,

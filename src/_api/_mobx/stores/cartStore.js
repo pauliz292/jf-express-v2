@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 
 
 export default class CartStore {
@@ -38,7 +38,9 @@ export default class CartStore {
             tempItem.totalPrice = tempItem.price * tempItem.qty;
         }
 
-        this.cartItems = items;
+        runInAction(() => {
+            this.cartItems = items
+        });
     }
 
     addItemQty = id => {
