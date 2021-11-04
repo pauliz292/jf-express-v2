@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { useStore } from '../../_api/_mobx/stores/store'
 import { ListItem, Button, Icon } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react-lite'
+import * as productService from '../../_api/_services/productService'
 
 const ProductListScreen = observer(() => {
     const { productStore } = useStore();
-    const { products } = productStore;
+    const { products, setProducts } = productStore;
 
     const navigation = useNavigation();
+
+    useEffect(() => {
+        productService.getAll()
+            .then(res => {
+                if (res.length > 0) {
+                    setProducts(res)
+                }
+            });
+    }, [])
 
     return(
         <ScrollView>

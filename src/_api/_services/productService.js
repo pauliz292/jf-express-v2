@@ -4,17 +4,24 @@ import { apiUrl } from "../config.json";
 const apiEndpoint = apiUrl + "/product";
 
 export async function getAll() {
-    await http.get(apiEndpoint)
-    .then(res => {
-        const { data } = res;
-        
-        return data;
+    const { data } = await http.get(apiEndpoint)
+    
+    return data;
+}
+
+export async function addProduct(values) {
+    const { status } = await http.post(apiEndpoint, {
+        name: values.name,
+        description: values.description,
+        qty: values.qty,
+        price: values.price
     })
-    .catch(err => console.log(err))
+    
+    return status;
 }
 
 export default {
     getAll,
-    // addProduct,
+    addProduct,
     // updateProduct,
 };
