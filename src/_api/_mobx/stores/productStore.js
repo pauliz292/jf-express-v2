@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx"
+import { makeAutoObservable, runInAction } from "mobx"
 import * as _service from '../../_services/productService'
 
 const products = [
@@ -9,14 +9,16 @@ const products = [
 ]
 
 export default class ProductStore {
-    products = products;
+    products = [];
     product = {};
 
     constructor() {
         makeAutoObservable(this);
     }
 
-    setProducts = () => {
-        this.products = values;
+    setProducts = (values) => {
+        runInAction(() => {
+            this.products = values
+        });
     }
 }

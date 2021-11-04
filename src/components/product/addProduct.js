@@ -2,9 +2,11 @@ import React from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { Button, Input } from 'react-native-elements'
 import { Formik } from 'formik'
+import Toast from "react-native-toast-message"
 import * as Yup from 'yup'
 import { observer } from "mobx-react-lite"
 import { useNavigation } from '@react-navigation/native'
+import * as productService from '../../_api/_services/productService'
 
 
 const AddProductScreen = observer(() => {
@@ -26,7 +28,37 @@ const AddProductScreen = observer(() => {
                     initialValues={{ name: '', description: '', qty: '', price: '' }}
                     validationSchema={ValidationSchema}
                     onSubmit={values => {
-                        console.log(values)
+                        let product = {
+                            "name": values.name,
+                            "description": values.description,
+                            "qty": Number(values.qty),
+                            "price": Number(values.price)
+                        }
+                        productService.addProduct(product)
+                        .then(res => {
+                            if (res == 200) {
+                                Toast.show({
+                                    type: "success",
+                                    text1: "SUCCESS!",
+                                    text2: "You have successfully added a new product.",
+                                    visibilityTime: 8000,
+                                    autoHide: true,
+                                    topOffset: 80,
+                                    bottomOffset: 40,
+                                });
+                            } else {
+                                Toast.show({
+                                    type: "error",
+                                    text1: "ERROR!",
+                                    text2: "Something went wrong!",
+                                    visibilityTime: 8000,
+                                    autoHide: true,
+                                    topOffset: 80,
+                                    bottomOffset: 40,
+                                });
+                            }
+                        });
+                        
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values }) => (

@@ -10,8 +10,14 @@ export async function getAll() {
 }
 
 export async function addTransaction(transaction) {
-    const { status } = await http.get(apiEndpoint, {
-        transaction
+    const { status } = await http.post(apiEndpoint, {
+        products: transaction.products,
+        totalAmount: transaction.totalAmount,
+        customerId: transaction.customerId,
+        orderNumber: transaction.orderNumber,
+        deliveryAddress: transaction.deliveryAddress,
+        contactInfo: transaction.contactInfo,
+        note: transaction.note
     })
 
     return status;

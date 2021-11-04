@@ -6,6 +6,7 @@ import { useStore } from '../../_api/_mobx/stores/store'
 import { observer } from 'mobx-react-lite'
 import { toJS } from 'mobx'
 import { Formik } from 'formik'
+import Toast from "react-native-toast-message"
 import * as Yup from 'yup'
 import * as transactionService from '../../_api/_services/transactionService'
 
@@ -37,7 +38,6 @@ const CheckoutScreen = observer(() => {
                 }
                 transactionService.addTransaction(obj)
                     .then(res => {
-                        console.log(res)
                         if (res == 200) {
                             createTransaction(obj)
                             navigation.navigate('ConfirmOrderScreen')
