@@ -26,9 +26,10 @@ const ApplyScreen = observer(() => {
       <Formik
         initialValues={{ licenseNumber: "", plateNumber: "" }}
         validationSchema={ApplySchema}
-        onSubmit={(values) => {
+        onSubmit={(values, {resetForm}) => {
           driverService.apply(values, user.id)
             .then(res => {
+              resetForm();
               Toast.show({
                 type:'success',
                 text1: "Success",

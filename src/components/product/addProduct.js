@@ -27,7 +27,7 @@ const AddProductScreen = observer(() => {
                 <Formik 
                     initialValues={{ name: '', description: '', qty: '', price: '' }}
                     validationSchema={ValidationSchema}
-                    onSubmit={values => {
+                    onSubmit={(values, {resetForm}) => {
                         let product = {
                             "name": values.name,
                             "description": values.description,
@@ -36,6 +36,7 @@ const AddProductScreen = observer(() => {
                         }
                         productService.addProduct(product)
                         .then(res => {
+                            resetForm();
                             if (res == 200) {
                                 Toast.show({
                                     type: "success",
