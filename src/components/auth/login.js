@@ -31,10 +31,10 @@ const LoginScreen = observer(() => {
       <Formik
         initialValues={{ username: "", password: "" }}
         validationSchema={SignupSchema}
-        onSubmit={(values) => {
-          authService
-            .login(values.username, values.password)
+        onSubmit={(values, { resetForm }) => {
+          authService.login(values.username, values.password)
             .then((data) => {
+              resetForm();
               Toast.show({
                 type: "success",
                 text1: "Success",
@@ -44,7 +44,7 @@ const LoginScreen = observer(() => {
                 topOffset: 80,
                 bottomOffset: 40,
               });
-              setUser(data)
+              setUser(data);
               const { token } = data;
               setToken(token);
               const loggedInUser = authService.getCurrentUser(token);

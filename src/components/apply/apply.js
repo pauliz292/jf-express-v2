@@ -26,7 +26,7 @@ const ApplyAuth = observer(() => {
         <Formik
           initialValues={{ username: "", password: "" }}
           validationSchema={SignupSchema}
-          onSubmit={(values) => {
+          onSubmit={(values,{resetForm}) => {
             authService
               .login(values.username, values.password)
               .then((data) => {
@@ -34,6 +34,7 @@ const ApplyAuth = observer(() => {
                 const { token } = data;
                 setToken(token);
                 navigation.navigate('ApplyScreen');
+                resetForm();
               })
               .catch((err) => {
                 console.log("Error on loggin in.", err);
