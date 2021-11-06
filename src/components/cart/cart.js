@@ -16,6 +16,7 @@ const CartScreen = observer(() => {
     subtractItemQty,
     cartTotalPrice,
     getTotalAmount,
+    emptyCart
   } = cartStore;
 
   const { mapProducts, mapTotalAmount } = checkoutStore;
@@ -104,6 +105,15 @@ const CartScreen = observer(() => {
             }}
             onPress={() => navigation.navigate("HomeScreen")}
             title="Back to Home"
+          />
+           <Button
+            buttonStyle={{
+              borderRadius: 5,
+              marginTop: 10,
+              backgroundColor: "#C62828",
+            }}
+            onPress={() => emptyCart(cartItems)}
+            title="Clear Cart"
           />
         </View>
       </View>
