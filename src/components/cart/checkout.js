@@ -38,8 +38,8 @@ const CheckoutScreen = observer(() => {
                 }
                 transactionService.addTransaction(obj)
                     .then(res => {
-                        if (res == 200) {
-                            createTransaction(obj)
+                        if (res === 200) {
+                            // createTransaction(obj)
                             navigation.navigate('ConfirmOrderScreen')
                         }
                         else {
@@ -54,7 +54,18 @@ const CheckoutScreen = observer(() => {
                             });
                         }
                     })
-                    .catch(err => console.log(err))
+                    .catch(err => {
+                        console.log(err)
+                        Toast.show({
+                            type: "error",
+                            text1: "Error on your transaction",
+                            text2: "Please try again later. If the issue persist contact customer support.",
+                            visibilityTime: 8000,
+                            autoHide: true,
+                            topOffset: 80,
+                            bottomOffset: 40,
+                        });
+                    })
             }}
         >
             {({ 
