@@ -17,6 +17,10 @@ export default class CartStore {
         makeAutoObservable(this);
     }
 
+    emptyCart = (item) =>{
+        item = this.cartItems = [];
+    }
+
     addCartItem = (item) => {
         let items = [...this.cartItems];
 
