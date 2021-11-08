@@ -8,52 +8,68 @@ import { useStore } from "../../_api/_mobx/stores/store";
 const ProfileScreen = observer(() => {
   const navigation = useNavigation();
 
-  const { profileStore } = useStore();
-  const { profile } = profileStore;
+  const { profileStore, commonStore } = useStore();
+  // const { profile } = profileStore;
+  const { user } = commonStore;
+
+  const ProfileDetails = () => {
+    return(
+      <View style={styles.container}>
+        <Text style={styles.title}>
+            {user.firstName} {user.lastName}
+        </Text>
+        <View style={styles.profile}>
+          <Avatar
+            rounded
+            size="xlarge"
+            source={{
+              uri: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+            }}
+          />
+        </View>
+        <View style={styles.profileDetails}>
+          <ListItem bottomDivider>
+            <ListItem.Content>
+              <ListItem.Title>
+                Email: {user.email}
+              </ListItem.Title>
+              <ListItem.Subtitle>
+                Contact: {user ? <Text>{user.contact}</Text> : " "}
+              </ListItem.Subtitle>
+              <View style={styles.buttonContainer}>
+                <Button
+                  icon={<Icon name="edit" size={18} color="white" />}
+                  buttonStyle={{ marginRight: 10 }}
+                  onPress={() => navigation.navigate("EditProfileScreen")}
+                />
+                <Button
+                  icon={<Icon name="delete" size={18} color="white" />}
+                  buttonStyle={{ backgroundColor: "#E53935" }}
+                />
+              </View>
+            </ListItem.Content>
+          </ListItem>
+        </View>
+      </View>
+    );
+  }
+
+  const DefaultProfile = () => {
+    return(
+      <View style={styles.container}>
+        <Text style={{ fontSize: 18, color: "#424242" }}>Please login to your account.</Text>
+      </View>
+    );
+  }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>
-          <Text>
-            {profile.firstName} {profile.lastName}
-          </Text>
-      </Text>
-      <View style={styles.profile}>
-        <Avatar
-          rounded
-          size="xlarge"
-          source={{
-            uri: "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
-          }}
-        />
-      </View>
-      <View style={styles.profileDetails}>
-        <ListItem bottomDivider>
-          <ListItem.Content>
-            <ListItem.Title>
-              Email:{" "}
-                <Text>{profile.email}</Text>
-            </ListItem.Title>
-            <ListItem.Subtitle>
-              Contact:{" "}
-                <Text>{profile.contact}</Text>
-            </ListItem.Subtitle>
-            <View style={styles.buttonContainer}>
-              <Button
-                icon={<Icon name="edit" size={18} color="white" />}
-                buttonStyle={{ marginRight: 10 }}
-                onPress={() => navigation.navigate("EditProfileScreen")}
-              />
-              <Button
-                icon={<Icon name="delete" size={18} color="white" />}
-                buttonStyle={{ backgroundColor: "#E53935" }}
-              />
-            </View>
-          </ListItem.Content>
-        </ListItem>
-      </View>
-    </View>
+    <>
+      {user ?
+        <ProfileDetails /> : <DefaultProfile />
+      }
+    </>
   );
+  
 });
 
 export default ProfileScreen;
