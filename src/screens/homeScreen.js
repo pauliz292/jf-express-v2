@@ -1,16 +1,26 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Text, View, ScrollView, StyleSheet } from 'react-native'
 import { Card, Button, Icon } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 import { observer } from 'mobx-react-lite'
 import { useStore } from '../_api/_mobx/stores/store'
+import * as productService from '../_api/_services/productService'
 
 const HomeScreen = observer(() => {
     const navigation = useNavigation();
 
     const { productStore, cartStore } = useStore();
-    const { products } = productStore;
+    const { products, setProducts } = productStore;
     const { cartItems, addCartItem } = cartStore;
+
+    useEffect(() => {
+        productService.getAll()
+            .then(res => {
+                if (res.length > 0) {
+                    setProducts(res)
+                }
+            });
+    }, [])
 
     return(
         <ScrollView>
