@@ -23,7 +23,7 @@ const HomeScreen = observer(() => {
     }, [])
 
     return(
-        <ScrollView>
+        <ScrollView style={{backgroundColor:"#fff"}}>
             <View style={styles.container}>
                 <View style={{ marginTop: 15, marginBottom: 15, padding: 10 }}> 
                     <Button 
