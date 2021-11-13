@@ -22,7 +22,7 @@ const ProductListScreen = observer(() => {
     }, [])
 
     return(
-        <ScrollView>
+        <ScrollView style={{backgroundColor:"#fff"}}>
             <View style={styles.container}>
                 <Text style={styles.title}>Product List</Text>
                 <Button 
