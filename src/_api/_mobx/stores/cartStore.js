@@ -4,7 +4,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 export default class CartStore {
     cartItems = []
     cartItem = {
-        'id': 0,
+        'productId': 0,
         'name': "",
         'description': "",
         'price': 0,
@@ -25,7 +25,7 @@ export default class CartStore {
         let items = [...this.cartItems];
 
         this.cartItem = {
-            'id': item.id,
+            'productId': item.id,
             'name': item.name,
             'description': item.description,
             'price': item.price,
@@ -33,7 +33,7 @@ export default class CartStore {
             'qty': 1
         };
 
-        let tempItem = items.find(i => i.id === this.cartItem.id)
+        let tempItem = items.find(i => i.productId === this.cartItem.productId)
         if (!tempItem) {
             items.push(this.cartItem);
             this.cartTotalPrice = this.cartItem.price;
@@ -48,7 +48,7 @@ export default class CartStore {
     }
 
     addItemQty = id => {
-        let item = this.cartItems.find(i => i.id === id);
+        let item = this.cartItems.find(i => i.productId === id);
         if (item) {
             ++item.qty;
             item.totalPrice = item.price * item.qty;
@@ -56,7 +56,7 @@ export default class CartStore {
     }
 
     subtractItemQty = id => {
-        let item = this.cartItems.find(i => i.id === id);
+        let item = this.cartItems.find(i => i.productId === id);
         if (item) {
             --item.qty;
             item.totalPrice = item.price * item.qty;

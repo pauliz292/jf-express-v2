@@ -46,8 +46,8 @@ const CartScreen = observer(() => {
       <View style={styles.container}>
         <Text style={styles.title}>Your Cart</Text>
         <View style={styles.listContainer}>
-          {cartItems.map((item) => (
-            <ListItem bottomDivider key={item.id}>
+          {cartItems.map((item, i) => (
+            <ListItem bottomDivider key={i}>
               <ListItem.Content>
                 <ListItem.Title>{item.name}</ListItem.Title>
                 <ListItem.Subtitle>{item.description}</ListItem.Subtitle>
@@ -65,14 +65,14 @@ const CartScreen = observer(() => {
                       <Icon name="plus" type="font-awesome" color="#ffffff" />
                     }
                     buttonStyle={{ marginRight: 8 }}
-                    onPress={() => handleAddQty(item.id)}
+                    onPress={() => handleAddQty(item.productId)}
                   />
                   <Button
                     icon={
                       <Icon name="minus" type="font-awesome" color="#ffffff" />
                     }
                     buttonStyle={{ backgroundColor: "#E53935" }}
-                    onPress={() => handleSubtractQty(item.id)}
+                    onPress={() => handleSubtractQty(item.productId)}
                   />
                   <Text
                     style={{ marginLeft: 10, fontWeight: "bold", fontSize: 16 }}
@@ -106,7 +106,7 @@ const CartScreen = observer(() => {
             onPress={() => navigation.navigate("HomeScreen")}
             title="Back to Home"
           />
-           <Button
+          <Button
             buttonStyle={{
               borderRadius: 5,
               marginTop: 10,

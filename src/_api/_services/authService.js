@@ -29,6 +29,14 @@ export async function signUp(values) {
     return jwt;
 }
 
+export async function getTransactions(userId) {
+    const { data } = await http.get(apiEndpoint + "/transactions", {
+        userId
+    });
+    console.log(data)
+    return data;
+}
+
 export function loginWithJwt(jwt) {
     AsyncStorage.setItem(tokenKey, jwt);
 }
@@ -56,5 +64,7 @@ export default {
     loginWithJwt,
     logout,
     getCurrentUser,
-    getJwt
+    getJwt,
+    signUp,
+    getTransactions,
 };
