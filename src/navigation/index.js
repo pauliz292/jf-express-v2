@@ -20,6 +20,8 @@ import AddProductScreen from '../components/product/addProduct'
 import ApplyAuth from '../components/apply/apply'
 import ApplyScreen from '../components/apply/applyScreen'
 import TransactionHistoryScreen from '../components/activity/transactionHistory'
+import LoginChecker from '../components/auth/loginChecker'
+import ProductDetails from '../components/auth/loginChecker'
 
 const HomeStack = createStackNavigator();
 const HomeStackScren = () => (
@@ -36,7 +38,7 @@ const HomeStackScren = () => (
 const AuthStack = createStackNavigator();
 const AuthStackScren = () => (
     <AuthStack.Navigator screenOptions={{ headerShown: false }}>
-        <AuthStack.Screen name="LoginScreen" component={LoginScreen} />
+        <AuthStack.Screen name="LoginScreen" component={LoginChecker} />
         <AuthStack.Screen 
             name="SignUp" 
             component={SignUpScreen}
@@ -46,7 +48,7 @@ const AuthStackScren = () => (
         />
         <AuthStack.Screen 
             name="ProductListScreen" 
-            component={ProductListScreen} 
+            component={ProductDetails} 
             options={{
                 title: "Products"
             }}
