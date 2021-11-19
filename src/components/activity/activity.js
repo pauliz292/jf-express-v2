@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, ScrollView, StyleSheet, Text } from "react-native";
 import { ListItem } from "react-native-elements";
-import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
 import * as authService from "../../_api/_services/authService";
 import { observer } from "mobx-react-lite";
@@ -13,7 +12,7 @@ const ActivityScreen = observer(() => {
 
   const { commonStore, activityStore } = useStore();
   const { user } = commonStore;
-  const { setActivities } = activityStore;
+  const { setActivities, setActivity } = activityStore;
 
   const [transactions, setTransactions] = useState([]);
 
@@ -31,6 +30,11 @@ const ActivityScreen = observer(() => {
       console.log("No user data.")
     }
   }, [user])
+
+  const seeDetails = activity => {
+    setActivity(activity);
+    navigation.navigate("TransactionHistoryScreen");
+  };
 
   const NoUser = () => {
     return(
@@ -50,9 +54,8 @@ const ActivityScreen = observer(() => {
             <ListItem
               key={i}
               bottomDivider
-              onPress={() => navigation.navigate("TransactionHistoryScreen")}
+              onPress={() => seeDetails(item)}
             >
-              <Icon name={item.icon} style={{ color: "#03A9F4", fontSize: 24 }} />
               <ListItem.Content>
                 <ListItem.Title>Order Number: {item.orderNumber}</ListItem.Title>
                 <ListItem.Subtitle> Total Amount: {item.totalAmount}</ListItem.Subtitle>

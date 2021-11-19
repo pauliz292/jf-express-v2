@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 
 export default class ActivityStore {
     activities = [];
+    activity = {};
 
     constructor() {
         makeAutoObservable(this);
@@ -10,6 +11,12 @@ export default class ActivityStore {
     setActivities = value => {
         runInAction(() => {
             this.activities = value;
+        })
+    }
+
+    setActivity = value => {
+        runInAction(() => {
+            this.activity = value;
         })
     }
 }
