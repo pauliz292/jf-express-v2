@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { View, ScrollView, StyleSheet } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, ScrollView, StyleSheet, Text } from "react-native";
 import { ListItem } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { useNavigation } from "@react-navigation/native";
@@ -11,56 +11,64 @@ import { useStore } from "../../_api/_mobx/stores/store";
 const ActivityScreen = observer(() => {
   const navigation = useNavigation();
 
-  const { commonStore } = useStore();
+  const { commonStore, activityStore } = useStore();
   const { user } = commonStore;
+  const { setActivities } = activityStore;
 
-  const list = [
-    {
-      title: "Purchased",
-      icon: "shopping-bag",
-      subTitle: "September 21, 2025",
-    },
-    {
-      title: "Purchased",
-      icon: "shopping-bag",
-      subTitle: "September 21, 2025",
-    },
-    {
-      title: "Purchased",
-      icon: "shopping-bag",
-      subTitle: "September 21, 2025",
-    },
-  ];
+  const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
     if(user) {
       authService.getTransactions(user.id)
-        .then(res => console.log(res))
+        .then(res => {
+          if (res.length > 0) {
+            setTransactions(res)
+            setActivities(res)
+          }
+        })
         .catch(err => console.log(err));
     } else {
       console.log("No user data.")
     }
-  }, [])
+  }, [user])
+
+  const NoUser = () => {
+    return(
+      <View style={styles.container}>
+        <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+          Login to your account.
+        </Text>
+      </View>
+    );
+  };
+
+  const ActivitiesView = () => {
+    return(
+      <ScrollView style={{ backgroundColor: "white" }}>
+        <View style={styles.container}>
+          {transactions.map((item, i) => (
+            <ListItem
+              key={i}
+              bottomDivider
+              onPress={() => navigation.navigate("TransactionHistoryScreen")}
+            >
+              <Icon name={item.icon} style={{ color: "#03A9F4", fontSize: 24 }} />
+              <ListItem.Content>
+                <ListItem.Title>Order Number: {item.orderNumber}</ListItem.Title>
+                <ListItem.Subtitle> Total Amount: {item.totalAmount}</ListItem.Subtitle>
+              </ListItem.Content>
+              <ListItem.Chevron />
+            </ListItem>
+          ))}
+        </View>
+      </ScrollView>
+    );
+  };
 
   return (
-    <ScrollView style={{ backgroundColor: "white" }}>
-      <View style={styles.container}>
-        {list.map((item, i) => (
-          <ListItem
-            key={i}
-            bottomDivider
-            onPress={() => navigation.navigate("TransactionHistoryScreen")}
-          >
-            <Icon name={item.icon} style={{ color: "#03A9F4", fontSize: 24 }} />
-            <ListItem.Content>
-              <ListItem.Title>{item.title}</ListItem.Title>
-              <ListItem.Subtitle>{item.subTitle}</ListItem.Subtitle>
-            </ListItem.Content>
-            <ListItem.Chevron />
-          </ListItem>
-        ))}
-      </View>
-    </ScrollView>
+    <>
+      {user ? <ActivitiesView /> : <NoUser />}
+    </>
   );
 });
 
