@@ -30,10 +30,8 @@ export async function signUp(values) {
 }
 
 export async function getTransactions(userId) {
-    const { data } = await http.get(apiEndpoint + "/transactions", {
-        userId
-    });
-    console.log(data)
+    const { data } = await http.get(apiEndpoint + "/transactions?userId=" + userId);
+    
     return data;
 }
 

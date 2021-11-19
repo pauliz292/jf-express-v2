@@ -110,7 +110,7 @@ const CartScreen = observer(() => {
             buttonStyle={{
               borderRadius: 5,
               marginTop: 10,
-              backgroundColor: "#C62828",
+              backgroundColor: "#78909C",
             }}
             onPress={() => emptyCart(cartItems)}
             title="Clear Cart"
