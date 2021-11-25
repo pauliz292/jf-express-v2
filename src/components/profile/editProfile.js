@@ -1,30 +1,63 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { Button, Input, Avatar } from 'react-native-elements'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import * as ImagePicker from 'expo-image-picker'
 import { observer } from 'mobx-react-lite'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native'
+import * as authService from '../../_api/_services/authService'
+import { useStore } from '../../_api/_mobx/stores/store'
+
 
 const EditProfileScreen = observer(() => {
-
+    const { commonStore } = useStore();
+    const { user } = commonStore;
     const navigation = useNavigation();
 
     const ValidationSchema = Yup.object().shape({
         email: Yup.string().required('Required'),
-        firstName: Yup.string().required('Required'),
-        lastName: Yup.string().required('Required'),
+        phoneNumber: Yup.string().required('Required'),
     });
+
+    const [image, setImage] = useState({})
+
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+        })();
+    }, [])
+
+    const handleUpload = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+        
+        setImage(result)
+    }
 
     return(
         <ScrollView>
             <View style={styles.container}>
                 <Text style={styles.title}>Edit Profile</Text>
                 <Formik 
-                    initialValues={{ email: '', firstName: '', lastName: '' }}
+                    initialValues={{ email: '', phoneNumber: ''}}
                     validationSchema={ValidationSchema}
                     onSubmit={values => {
-                        console.log(values)
+                        let data = {
+                            id: user.id,
+                            phoneNumber: values.phoneNumber,
+                            email: values.email
+                        }
+                        authService.updateProfile(data, image)
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values }) => (
@@ -33,11 +66,9 @@ const EditProfileScreen = observer(() => {
                                 <Avatar
                                     rounded
                                     size='xlarge'
-                                    source={{
-                                        uri:
-                                        'https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg',
-                                    }}
+                                    source={{ uri: image.uri }}
                                 />
+                                <Button title="Upload" onPress={() => handleUpload()} />
                             </View>
                             <View style={styles.form}>
                                 <Input
@@ -47,19 +78,13 @@ const EditProfileScreen = observer(() => {
                                     placeholder='Email'
                                 />
                                 <Input
-                                    onChangeText={handleChange('firstName')}
-                                    onBlur={handleBlur('firstName')}
-                                    value={values.firstName}
-                                    placeholder='First Name'
-                                />
-                                <Input
-                                    onChangeText={handleChange('lastName')}
-                                    onBlur={handleBlur('lastName')}
-                                    value={values.lastName}
-                                    placeholder='Last Name'
+                                    onChangeText={handleChange('phoneNumber')}
+                                    onBlur={handleBlur('phoneNumber')}
+                                    value={values.phoneNumber}
+                                    placeholder='Phone Number'
                                 />
                                 <View style={styles.buttonContainer}>
-                                    <Button title="Update"/>
+                                    <Button title="Update" onPress={() => handleSubmit()} />
                                 </View>
                                 <View style={styles.buttonContainer}>
                                     <Button 
