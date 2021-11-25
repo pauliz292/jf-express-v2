@@ -29,6 +29,31 @@ export async function signUp(values) {
     return jwt;
 }
 
+export async function updateProfile(values, image) {
+    let formData = new FormData()
+    console.log(image)
+    let img = {
+        uri : image.uri,
+        type: image.type
+    };
+
+    let profile = {
+        phoneNumber : values.phoneNumber,
+        email: values.email,
+        id: values.id
+    };
+
+    formData.append('profile', profile)
+    formData.append('profilePicture', {
+        uri: img.uri,
+        type: img.type
+    })
+    console.log(formData)
+    await http.post(apiEndpoint + "/update", {formData})
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+}
+
 export async function getTransactions(userId) {
     const { data } = await http.get(apiEndpoint + "/transactions?userId=" + userId);
     
