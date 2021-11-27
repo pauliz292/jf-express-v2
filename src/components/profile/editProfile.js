@@ -35,21 +35,22 @@ const EditProfileScreen = observer(() => {
 
     const handleUpload = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
-                mediaTypes: ImagePicker.MediaTypeOptions.All,
-                allowsEditing: true,
-                aspect: [4, 3],
-                quality: 1,
-            });
-        
-        setImage(result)
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+            base64: true
+        });
+
+        setImage(result);
     }
 
-    return(
+    return (
         <ScrollView>
             <View style={styles.container}>
                 <Text style={styles.title}>Edit Profile</Text>
-                <Formik 
-                    initialValues={{ email: '', phoneNumber: ''}}
+                <Formik
+                    initialValues={{ email: '', phoneNumber: '' }}
                     validationSchema={ValidationSchema}
                     onSubmit={values => {
                         let data = {
@@ -87,9 +88,9 @@ const EditProfileScreen = observer(() => {
                                     <Button title="Update" onPress={() => handleSubmit()} />
                                 </View>
                                 <View style={styles.buttonContainer}>
-                                    <Button 
-                                        title="Cancel" 
-                                        buttonStyle={{ backgroundColor: '#E53935' }} 
+                                    <Button
+                                        title="Cancel"
+                                        buttonStyle={{ backgroundColor: '#E53935' }}
                                         onPress={() => navigation.navigate('ProfileScreen')}
                                     />
                                 </View>
