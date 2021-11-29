@@ -1,5 +1,7 @@
 import http from "./httpService";
 import { apiUrl } from "../config.json";
+import FormData from 'form-data';
+import { reactNativeBlobConverter } from "../_converter/imageConverterService";
 
 const apiEndpoint = apiUrl + "/product";
 
@@ -9,14 +11,21 @@ export async function getAll() {
     return data;
 }
 
-export async function addProduct(values) {
-    const { status } = await http.post(apiEndpoint, {
-        name: values.name,
-        description: values.description,
-        qty: values.qty,
-        price: values.price
+export async function addProduct(values, image) {
+    let formData = new FormData();
+    const img = reactNativeBlobConverter(image.base64, image.uri);
+
+    formData.append('name', values.name);
+    formData.append('description', values.description);
+    formData.append('qty', values.qty);
+    formData.append('price', values.price);
+    formData.append('image', img);
+
+    const { status } = await http.post(apiEndpoint, formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        }
     })
-    
     return status;
 }
 
