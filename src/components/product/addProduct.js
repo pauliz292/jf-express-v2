@@ -39,6 +39,7 @@ const AddProductScreen = observer(() => {
                 allowsEditing: true,
                 aspect: [4, 3],
                 quality: 1,
+                base64: true
             });
         
         setImage(result)
@@ -63,7 +64,8 @@ const AddProductScreen = observer(() => {
                             "qty": Number(values.qty),
                             "price": Number(values.price)
                         }
-                        productService.addProduct(product)
+                        
+                        productService.addProduct(product, image)
                         .then(res => {
                             resetForm();
                             if (res == 200) {
