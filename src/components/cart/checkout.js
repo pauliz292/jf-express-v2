@@ -39,7 +39,7 @@ const CheckoutScreen = observer(() => {
                 transactionService.addTransaction(obj)
                     .then(res => {
                         if (res === 200) {
-                            // createTransaction(obj)
+                            createTransaction(obj)
                             navigation.navigate('ConfirmOrderScreen')
                         }
                         else {
@@ -137,6 +137,9 @@ const CheckoutScreen = observer(() => {
                         </Text>
                         <Text style={{ fontSize: 16 }}>
                             Total Items: {cartItems.length}
+                        </Text>
+                        <Text style={{ fontSize: 16 }}>
+                            Delivery Charge: PHP 150.00
                         </Text>
                         <Form />
                     </ListItem.Content>

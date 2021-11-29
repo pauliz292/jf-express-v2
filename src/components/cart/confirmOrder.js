@@ -38,6 +38,9 @@ const ConfirmOrderScreen = observer(() => {
                             Delivery Address: {transaction.deliveryAddress}
                         </Text>
                         <Text style={{ fontSize: 16 }}>
+                            Delivery Charge: PHP 150.00
+                        </Text>
+                        <Text style={{ fontSize: 16 }}>
                             Contact Info: {transaction.contactInfo}
                         </Text>
                         <Text style={{ fontSize: 16 }}>

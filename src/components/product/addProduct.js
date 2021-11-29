@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
-import { Button, Input } from 'react-native-elements'
+import { Button, Input, Image } from 'react-native-elements'
 import { Formik } from 'formik'
 import Toast from "react-native-toast-message"
 import * as Yup from 'yup'
+import * as ImagePicker from 'expo-image-picker'
 import { observer } from "mobx-react-lite"
 import { useNavigation } from '@react-navigation/native'
 import * as productService from '../../_api/_services/productService'
@@ -19,11 +20,39 @@ const AddProductScreen = observer(() => {
         price: Yup.string().required('Required'),
     });
 
+    const [image, setImage] = useState({})
+
+    useEffect(() => {
+        (async () => {
+            if (Platform.OS !== 'web') {
+                const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (status !== 'granted') {
+                    alert('Sorry, we need camera roll permissions to make this work!');
+                }
+            }
+        })();
+    }, [])
+
+    const handleUpload = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+                mediaTypes: ImagePicker.MediaTypeOptions.All,
+                allowsEditing: true,
+                aspect: [4, 3],
+                quality: 1,
+            });
+        
+        setImage(result)
+    }
 
     return(
         <ScrollView style={{ backgroundColor: '#fff' }}>
             <View style={styles.container}>
                 <Text style={styles.title}>Add Product</Text>
+                <Image
+                    source={{ uri: image.uri }}
+                    style={{ width: 200, height: 200 }}
+                />
+                <Button title="Upload" onPress={() => handleUpload()} />
                 <Formik 
                     initialValues={{ name: '', description: '', qty: '', price: '' }}
                     validationSchema={ValidationSchema}
