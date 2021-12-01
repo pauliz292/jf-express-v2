@@ -8,7 +8,7 @@ import * as productService from '../../_api/_services/productService'
 
 const ProductListScreen = observer(() => {
     const { productStore } = useStore();
-    const { products, setProducts } = productStore;
+    const { products, setProducts, setProduct } = productStore;
 
     const navigation = useNavigation();
 
@@ -20,6 +20,11 @@ const ProductListScreen = observer(() => {
                 }
             });
     }, [])
+
+    const handleEdit = (item) => {
+        setProduct(item);
+        navigation.navigate('EditProductScreen');
+    }
 
     return(
         <ScrollView style={{backgroundColor:"#fff"}}>
@@ -46,7 +51,7 @@ const ProductListScreen = observer(() => {
                                     <Button 
                                         icon={<Icon name='edit' type='font-awesome' color='#ffffff' />} 
                                         buttonStyle={{ marginRight: 8 }}
-                                        // onPress={() => handleAddQty(item.id)}
+                                        onPress={() => handleEdit(item)}
                                     />
                                     <Button 
                                         icon={<Icon name='trash' type='font-awesome' color='#ffffff' />} 

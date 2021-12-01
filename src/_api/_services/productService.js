@@ -29,8 +29,19 @@ export async function addProduct(values, image) {
     return status;
 }
 
+export async function updateProduct(product) {
+    const { data } = await http.put(apiEndpoint, {
+        "id": product.id,
+        "description": product.description,
+        "qty": product.qty,
+        "price": product.price
+    })
+    
+    return data;
+}
+
 export default {
     getAll,
     addProduct,
-    // updateProduct,
+    updateProduct,
 };

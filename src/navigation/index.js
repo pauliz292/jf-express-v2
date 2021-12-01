@@ -5,7 +5,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer'
 
 import HomeScreen from '../screens/homeScreen'
 import SignUpScreen from '../components/auth/signUp'
-import LoginScreen from '../components/auth/login'
+// import LoginScreen from '../components/auth/login'
 import ProfileScreen from '../components/profile/profile'
 import EditProfileScreen from '../components/profile/editProfile'
 import ActivityScreen from '../components/activity/activity'
@@ -15,8 +15,9 @@ import CheckoutScreen from '../components/cart/checkout'
 import WelcomeScreen from '../screens/welcomeScreen'
 import SettingsScreen from '../screens/settingsScreen'
 import ConfirmOrderScreen from '../components/cart/confirmOrder'
-import ProductListScreen from '../components/product/productList'
+// import ProductListScreen from '../components/product/productList'
 import AddProductScreen from '../components/product/addProduct'
+import EditProductScreen from '../components/product/editProduct'
 import ApplyAuth from '../components/apply/apply'
 import ApplyScreen from '../components/apply/applyScreen'
 import TransactionHistoryScreen from '../components/activity/transactionHistory'
@@ -56,6 +57,13 @@ const AuthStackScren = () => (
         <AuthStack.Screen 
             name="AddProductScreen" 
             component={AddProductScreen} 
+            options={{
+                title: "Products"
+            }}
+        />
+        <AuthStack.Screen 
+            name="EditProductScreen" 
+            component={EditProductScreen} 
             options={{
                 title: "Products"
             }}
