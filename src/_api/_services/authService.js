@@ -33,7 +33,7 @@ export async function updateProfile(values, image) {
     let formData = new FormData();
     const img = reactNativeBlobConverter(image.base64, image.uri);
     
-    formData.append('id', id);
+    formData.append('id', values.id);
     formData.append('email', values.email);
     formData.append('profilePicture', img);
     formData.append('phoneNumber', values.phoneNumber);

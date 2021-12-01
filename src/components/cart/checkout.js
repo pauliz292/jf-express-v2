@@ -141,6 +141,9 @@ const CheckoutScreen = observer(() => {
                         <Text style={{ fontSize: 16 }}>
                             Delivery Charge: PHP 150.00
                         </Text>
+                        <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#D32F2F' }}>
+                            NOTE: Cash on delivery only 
+                        </Text>
                         <Form />
                     </ListItem.Content>
                 </ListItem>
