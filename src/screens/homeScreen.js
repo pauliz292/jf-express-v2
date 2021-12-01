@@ -39,7 +39,7 @@ const HomeScreen = observer(() => {
                         <Card key={item.id}>
                             <Card.Title>{item.name}</Card.Title>
                             <Card.Divider/>
-                            <Card.Image source={require('../../assets/meat.png')}/>
+                            <Card.Image source={{ uri: item.image }}/>
                                 <Text style={{marginBottom: 5}}>
                                     {item.description}
                                 </Text>
