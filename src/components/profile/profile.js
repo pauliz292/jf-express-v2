@@ -19,13 +19,15 @@ const ProfileScreen = observer(() => {
             {user.firstName} {user.lastName}
         </Text>
         <View style={styles.profile}>
-          <Avatar
-            rounded
-            size="xlarge"
-            source={{
-              uri: user.profilePicture,
-            }}
-          />
+          {user.profilePicture !== "" ?
+            <Avatar
+              rounded
+              size="xlarge"
+              source={{
+                uri: user.profilePicture,
+              }}
+            /> : null
+          }
         </View>
         <View style={styles.profileDetails}>
           <ListItem bottomDivider>

@@ -49,10 +49,12 @@ const AddProductScreen = observer(() => {
         <ScrollView style={{ backgroundColor: '#fff' }}>
             <View style={styles.container}>
                 <Text style={styles.title}>Add Product</Text>
-                <Image
-                    source={{ uri: image.uri }}
-                    style={{ width: 200, height: 200 }}
-                />
+                {image.uri !== "" ?
+                    <Image
+                        source={{ uri: image.uri }}
+                        style={{ width: 200, height: 200 }}
+                    /> : null
+                }
                 <Button title="Upload" onPress={() => handleUpload()} />
                 <Formik 
                     initialValues={{ name: '', description: '', qty: '', price: '' }}
@@ -78,6 +80,7 @@ const AddProductScreen = observer(() => {
                                     topOffset: 80,
                                     bottomOffset: 40,
                                 });
+                                navigation.navigate('ProductListScreen')
                             } else {
                                 Toast.show({
                                     type: "error",
