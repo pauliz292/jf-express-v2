@@ -40,8 +40,18 @@ export async function updateProduct(product) {
     return data;
 }
 
+export async function archiveProduct(product) {
+    const { data } = await http.delete(apiEndpoint, {
+        "id": product.id,
+        "isDeleted": product.isDeleted,
+    })
+    
+    return data;
+}
+
 export default {
     getAll,
     addProduct,
     updateProduct,
+    archiveProduct,
 };
