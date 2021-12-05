@@ -6,8 +6,9 @@ import { Button, ListItem } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 
 const ConfirmOrderScreen = observer(() => {
-    const { checkoutStore } = useStore();
+    const { checkoutStore, commonStore } = useStore();
     const { transaction } = checkoutStore;
+    const { user } = commonStore;
 
     const navigation = useNavigation();
 
@@ -22,14 +23,11 @@ const ConfirmOrderScreen = observer(() => {
                         </ListItem.Title>
                         <Text style={{ fontSize: 16 }}>
                             Total Amount: <Text style={{ color: '#1976D2', fontWeight: 'bold' }}>
-                                PHP {transaction.totalAmount}
+                                PHP {transaction.totalAmount + 150}
                                 </Text>
                         </Text>
                         <Text style={{ fontSize: 16 }}>
-                            Customer: {transaction.customer}
-                        </Text>
-                        <Text style={{ fontSize: 16 }}>
-                            Transaction Date: {transaction.date}
+                            Customer: {user.firstName}
                         </Text>
                         <Text style={{ fontSize: 16 }}>
                             Total Items: {transaction.products.length}

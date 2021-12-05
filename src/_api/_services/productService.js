@@ -41,9 +41,13 @@ export async function updateProduct(product) {
 }
 
 export async function archiveProduct(product) {
-    const { data } = await http.delete(apiEndpoint, {
+    const item = {
         "id": product.id,
-        "isDeleted": product.isDeleted,
+        "isDeleted": product.isDeleted
+    }
+    
+    const { data } = await http.delete(apiEndpoint, {
+        item
     })
     
     return data;
