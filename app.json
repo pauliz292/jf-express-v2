@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "jf-express-v2",
+    "name": "JF Express",
     "slug": "jf-express-v2",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon-2.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
