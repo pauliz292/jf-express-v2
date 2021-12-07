@@ -4,7 +4,7 @@ import { useStore } from '../../_api/_mobx/stores/store'
 import { observer } from 'mobx-react-lite'
 import { Formik } from 'formik'
 import { useNavigation } from '@react-navigation/native'
-import { Button, Input } from 'react-native-elements'
+import { Button, Input, Icon } from 'react-native-elements'
 import Toast from "react-native-toast-message"
 import * as productService from '../../_api/_services/productService'
 
@@ -33,9 +33,35 @@ const EditProductScreen = observer(() => {
         navigation.navigate('ProductListScreen');
     }
 
+    const handleArchive = () => {
+        product.isDeleted = true;
+        
+        productService.archiveProduct(product)
+        .then(res => {
+            console.log("Success!", res)
+            Toast.show({
+                type: "success",
+                text1: "SUCCESS!",
+                text2: "You have successfully deleted a product.",
+                visibilityTime: 8000,
+                autoHide: true,
+                topOffset: 80,
+                bottomOffset: 40,
+            });
+            navigation.navigate('ProductListScreen')
+        })
+        .catch(err => console.log(err))
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Edit Product</Text>
+                <Button 
+                    title="Archive"
+                    icon={<Icon name='trash' type='font-awesome' color='#ffffff' />} 
+                    buttonStyle={{ backgroundColor: '#E53935', paddingHorizontal: 15 }}
+                    onPress={() => handleArchive()}
+                />
                 <Formik 
                     initialValues={{ 
                         description: item.description, 

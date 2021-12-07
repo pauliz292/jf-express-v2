@@ -41,14 +41,12 @@ export async function updateProduct(product) {
 }
 
 export async function archiveProduct(product) {
-    const item = {
-        "id": product.id,
-        "isDeleted": product.isDeleted
+    let item = {
+        id: product.id,
+        isDeleted: product.isDeleted
     }
     
-    const { data } = await http.delete(apiEndpoint, {
-        item
-    })
+    const { data } = await http.delete(apiEndpoint, {data: item })
     
     return data;
 }

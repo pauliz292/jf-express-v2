@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { useStore } from '../../_api/_mobx/stores/store'
 import { ListItem, Button, Icon } from 'react-native-elements'
@@ -9,8 +9,6 @@ import * as productService from '../../_api/_services/productService'
 const ProductListScreen = observer(() => {
     const { productStore } = useStore();
     const { products, setProducts, setProduct } = productStore;
-
-    const [isDeleted, setIsDeleted] = useState(false);
 
     const navigation = useNavigation();
 
@@ -26,17 +24,6 @@ const ProductListScreen = observer(() => {
     const handleEdit = (item) => {
         setProduct(item);
         navigation.navigate('EditProductScreen');
-    }
-
-    const handleArchive = (item) => {
-        setIsDeleted(true)
-        item.isDeleted = isDeleted;
-        
-        productService.archiveProduct(item)
-        .then(res => {
-            console.log("Success!", res)
-        })
-        .catch(err => console.log(err))
     }
 
     return(
@@ -62,14 +49,10 @@ const ProductListScreen = observer(() => {
                                 <Text style={{ marginLeft: 10, fontWeight: 'bold', fontSize: 16 }}>Price: {item.price}</Text>
                                 <View style={styles.buttonContainer}>
                                     <Button 
+                                        title="Edit"
                                         icon={<Icon name='edit' type='font-awesome' color='#ffffff' />} 
-                                        buttonStyle={{ marginRight: 8 }}
+                                        buttonStyle={{ marginRight: 8, paddingHorizontal: 15 }}
                                         onPress={() => handleEdit(item)}
-                                    />
-                                    <Button 
-                                        icon={<Icon name='trash' type='font-awesome' color='#ffffff' />} 
-                                        buttonStyle={{ backgroundColor: '#E53935' }}
-                                        onPress={() => handleArchive(item)}
                                     />
                                 </View>
                             </ListItem.Content>

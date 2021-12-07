@@ -16,8 +16,10 @@ export default class ProductStore {
     }
 
     setProducts = (values) => {
+        let newVals = values.filter(value => value.isDeleted == false)
+        
         runInAction(() => {
-            this.products = values
+            this.products = newVals
         });
     }
 
