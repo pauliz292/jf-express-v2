@@ -6,7 +6,6 @@ import * as authService from "../../_api/_services/authService";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../_api/_mobx/stores/store";
 
-
 const ActivityScreen = observer(() => {
   const navigation = useNavigation();
 
@@ -17,29 +16,30 @@ const ActivityScreen = observer(() => {
   const [transactions, setTransactions] = useState([]);
 
   useEffect(() => {
-    if(user) {
-      authService.getTransactions(user.id)
-        .then(res => {
+    if (user) {
+      authService
+        .getTransactions(user.id)
+        .then((res) => {
           if (res.length > 0) {
-            setTransactions(res)
-            setActivities(res)
+            setTransactions(res);
+            setActivities(res);
           }
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     } else {
-      console.log("No user data.")
+      console.log("No user data.");
     }
-  }, [user])
+  }, [user]);
 
-  const seeDetails = activity => {
+  const seeDetails = (activity) => {
     setActivity(activity);
     navigation.navigate("TransactionHistoryScreen");
   };
 
   const NoUser = () => {
-    return(
+    return (
       <View style={styles.container}>
-        <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+        <Text style={{ fontSize: 16, fontWeight: "bold" }}>
           Login to your account.
         </Text>
       </View>
@@ -47,18 +47,19 @@ const ActivityScreen = observer(() => {
   };
 
   const ActivitiesView = () => {
-    return(
+    return (
       <ScrollView style={{ backgroundColor: "white" }}>
         <View style={styles.container}>
           {transactions.map((item, i) => (
-            <ListItem
-              key={i}
-              bottomDivider
-              onPress={() => seeDetails(item)}
-            >
+            <ListItem key={i} bottomDivider onPress={() => seeDetails(item)}>
               <ListItem.Content>
-                <ListItem.Title>Order Number: {item.orderNumber}</ListItem.Title>
-                <ListItem.Subtitle> Total Amount: {item.totalAmount}</ListItem.Subtitle>
+                <ListItem.Title>
+                  Order Number: {item.orderNumber}
+                </ListItem.Title>
+                <ListItem.Subtitle>
+                  {" "}
+                  Total Amount: {item.totalAmount}
+                </ListItem.Subtitle>
               </ListItem.Content>
               <ListItem.Chevron />
             </ListItem>
@@ -68,11 +69,7 @@ const ActivityScreen = observer(() => {
     );
   };
 
-  return (
-    <>
-      {user ? <ActivitiesView /> : <NoUser />}
-    </>
-  );
+  return <>{user ? <ActivitiesView /> : <NoUser />}</>;
 });
 
 export default ActivityScreen;
