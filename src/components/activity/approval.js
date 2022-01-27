@@ -9,6 +9,7 @@ import {
      SwipeableQuickActions,
 } from 'react-native-swipe-list';
 import { ListItem } from './ListItem';
+import { ToastAndroid } from 'react-native';
 
 const ApprovalScreen = observer(() => {
      const { commonStore } = useStore();
@@ -28,7 +29,7 @@ const ApprovalScreen = observer(() => {
           return (
                <View style={styles.container}>
                     <Text style={{ fontSize: 16, fontWeight: "bold" }}>
-                         Login to your account.
+                         Login an Admin account.
                     </Text>
                </View>
           );
@@ -57,12 +58,18 @@ const ApprovalScreen = observer(() => {
                orderNo: '002012',
                qty: 1,
                price: 400,
-               isApproved: false
+               isApproved: true
           }
      ]
 
      const AdminUser = () => {
           const [approval, setApproval] = useState(initialData)
+
+          const handleApprove = (item) => {
+               console.log(`Approved id: ${item.id} product: ${item.product}`);
+               return ToastAndroid.show(`Order no: ${item.orderNo} ${item.isApproved ? "Cancelled" : "Approved"}!`, ToastAndroid.SHORT)
+          }
+
           return (
                <SafeAreaView>
                     <SwipeableFlatList style={styles.swipeable}
@@ -70,7 +77,7 @@ const ApprovalScreen = observer(() => {
                          renderItem={({ item }) => <ListItem {...item} />}
                          keyExtractor={(index) => index.id.toString()}
                          renderLeftActions={({ item }) => (
-                         <SwipeableQuickActions>
+                         <SwipeableQuickActions style={{backgroundColor: "red"}}>
                               <SwipeableQuickActionButton style={styles.button}
                               onPress={() => {
                               LayoutAnimation.configureNext(
@@ -79,13 +86,13 @@ const ApprovalScreen = observer(() => {
                               setApproval(approval.filter((value) => value.id !== item.id));
                               }}
                               text="Delete"
-                              textStyle={{ fontWeight: "bold", color: "red" }}
+                              textStyle={{ fontWeight: "bold", color: "white" }}
                               />
                          </SwipeableQuickActions>
                          )}
                          renderRightActions={({ item }) => (
-                         <SwipeableQuickActions>
-                              <SwipeableQuickActionButton style={styles.button} textStyle={{ fontWeight: "bold", color: "green" }} onPress={() => {}} text="Approve"/>
+                         <SwipeableQuickActions style={{backgroundColor: "green"}}>
+                              <SwipeableQuickActionButton style={styles.button} textStyle={{ fontWeight: "bold", color: "white" }} onPress={() => handleApprove(item)} text={item.isApproved ? "Disapprove" : "Approve"}/>
                          </SwipeableQuickActions>
                          )}
                     />
@@ -105,14 +112,10 @@ export default ApprovalScreen;
 const styles = StyleSheet.create({
      button: {
           display: 'flex',
-          width: '100%',
+          width: 100,
           height: '100%',
           alignItems: 'center',
           justifyContent: 'center',
           padding: 10
-     },
-     swipeable: {
-          borderBottomColor: 'black',
-          color: 'red'
      }
 });
