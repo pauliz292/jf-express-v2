@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../_api/_mobx/stores/store";
 import ProductListScreen from "../product/productList";
+import TabViewLayout from "../../screens/Admin";
 import LoginScreen from "./login";
 import * as authService from "../../_api/_services/authService";
 
@@ -34,7 +35,7 @@ const LoginChecker = observer(()=>{
     return(
         <>
             {user == null || role !== "admin" ?
-                <LoginView /> : <ProductDetails />
+                <LoginView /> : <TabViewLayout />
             }
         </>
     )
