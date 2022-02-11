@@ -10,11 +10,13 @@ import {
 } from 'react-native-swipe-list';
 import { ListItem } from './ListItem';
 import { ToastAndroid } from 'react-native';
+import * as transactionService from '../../_api/_services/transactionService';
 
 const ApprovalScreen = observer(() => {
      const { commonStore } = useStore();
      const { user } = commonStore;
      const [role, setRole] = useState("user");
+     const [ transactions, setTransactions ] = useState([]);
 
      useEffect(() => {
           console.log(user)
@@ -22,6 +24,16 @@ const ApprovalScreen = observer(() => {
                const loggedInUser = authService.getCurrentUser(user.token);
                const { unique_name } = loggedInUser;
                setRole(unique_name);
+
+               transactionService
+               .getAll()
+               .then((res) => {
+                    if (res.length > 0) {
+                    setTransactions(res);
+                    console.log(transactions);
+                    }
+               })
+               .catch((err) => console.log(err));
           }
      }, [user])
 
@@ -35,39 +47,12 @@ const ApprovalScreen = observer(() => {
           );
      };
 
-     const initialData = [
-          {
-               id: 1,
-               product: 'Chicken',
-               orderNo: '002010',
-               qty: 1,
-               price: 200,
-               isApproved: false
-          },
-          {
-               id: 2,
-               product: 'Pork',
-               orderNo: '002011',
-               qty: 2,
-               price: 300,
-               isApproved: false
-          },
-          {
-               id: 3,
-               product: 'Beef',
-               orderNo: '002012',
-               qty: 1,
-               price: 400,
-               isApproved: true
-          }
-     ]
-
      const AdminUser = () => {
-          const [approval, setApproval] = useState(initialData)
+          const [ approval, setApproval ] = useState(transactions)
 
           const handleApprove = (item) => {
-               console.log(`Approved id: ${item.id} product: ${item.product}`);
-               return ToastAndroid.show(`Order no: ${item.orderNo} ${item.isApproved ? "Cancelled" : "Approved"}!`, ToastAndroid.SHORT)
+               console.log(`Approved id: ${item.id} product: ${item.orderNumber}`);
+               return ToastAndroid.show(`Order no: ${item.orderNumber} ${item.isApproved ? "Cancelled" : "Approved"}!`, ToastAndroid.SHORT)
           }
 
           return (
@@ -75,7 +60,7 @@ const ApprovalScreen = observer(() => {
                     <SwipeableFlatList style={styles.swipeable}
                          data={approval}
                          renderItem={({ item }) => <ListItem {...item} />}
-                         keyExtractor={(index) => index.id.toString()}
+                         keyExtractor={(index) => index.orderNumber.toString()}
                          renderLeftActions={({ item }) => (
                          <SwipeableQuickActions style={{backgroundColor: "red"}}>
                               <SwipeableQuickActionButton style={styles.button}
@@ -83,7 +68,7 @@ const ApprovalScreen = observer(() => {
                               LayoutAnimation.configureNext(
                                    LayoutAnimation.Presets.easeInEaseOut
                               );
-                              setApproval(approval.filter((value) => value.id !== item.id));
+                              setApproval(approval.filter((value) => value.orderNumber !== item.orderNumber));
                               }}
                               text="Delete"
                               textStyle={{ fontWeight: "bold", color: "white" }}
