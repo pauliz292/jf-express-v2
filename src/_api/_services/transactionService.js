@@ -23,8 +23,16 @@ export async function addTransaction(transaction) {
     return status;
 }
 
+export async function updateTransaction(transaction) {
+    const { data } = await http.put(`${apiUrl}/approve-transaction?transactionId=${transaction.id}`,{
+    })
+    
+    return data;
+}
+
 export default {
     getAll,
     addTransaction,
+    updateTransaction,
 };
 

@@ -9,7 +9,7 @@ import {
      SwipeableQuickActions,
 } from 'react-native-swipe-list';
 import { ListItem } from './ListItem';
-import { ToastAndroid } from 'react-native';
+import Toast from 'react-native-toast-message'
 import * as transactionService from '../../_api/_services/transactionService';
 
 const ApprovalScreen = observer(() => {
@@ -19,7 +19,6 @@ const ApprovalScreen = observer(() => {
      const [ transactions, setTransactions ] = useState([]);
 
      useEffect(() => {
-          console.log(user)
           if (user) {
                const loggedInUser = authService.getCurrentUser(user.token);
                const { unique_name } = loggedInUser;
@@ -27,15 +26,14 @@ const ApprovalScreen = observer(() => {
 
                transactionService
                .getAll()
-               .then((res) => {
+               .then(res => {
                     if (res.length > 0) {
-                    setTransactions(res);
-                    console.log(transactions);
+                         setTransactions(res);
                     }
                })
                .catch((err) => console.log(err));
           }
-     }, [user])
+     }, [transactions, user])
 
      const NoUser = () => {
           return (
@@ -48,11 +46,29 @@ const ApprovalScreen = observer(() => {
      };
 
      const AdminUser = () => {
-          const [ approval, setApproval ] = useState(transactions)
+          const products = transactions.filter((item) => item.isApproved !== true);
+          const [ approval, setApproval ] = useState(products)
 
           const handleApprove = (item) => {
-               console.log(`Approved id: ${item.id} product: ${item.orderNumber}`);
-               return ToastAndroid.show(`Order no: ${item.orderNumber} ${item.isApproved ? "Cancelled" : "Approved"}!`, ToastAndroid.SHORT)
+               console.log(`Approved id: ${item.customerName} product: ${item.orderNumber}`);
+               transactionService.updateTransaction(item)
+               .then(res => {
+                    console.log("return data:", res)
+                    const test = approval.filter(record => {
+                         return record.orderNumber !== res.orderNumber
+                    })
+                    setApproval(test);
+                    Toast.show({
+                         type: "success",
+                         text1: "Order Approved",
+                         text2: `Order Number: ${item.orderNumber} \nCustomer Name: ${item.customerName}`,
+                         visibilityTime: 1000,
+                         autoHide: true,
+                         topOffset: 80,
+                         bottomOffset: 40,
+                    });
+               })
+               .catch(err => console.log(err));
           }
 
           return (
@@ -60,24 +76,24 @@ const ApprovalScreen = observer(() => {
                     <SwipeableFlatList style={styles.swipeable}
                          data={approval}
                          renderItem={({ item }) => <ListItem {...item} />}
-                         keyExtractor={(index) => index.orderNumber.toString()}
-                         renderLeftActions={({ item }) => (
-                         <SwipeableQuickActions style={{backgroundColor: "red"}}>
-                              <SwipeableQuickActionButton style={styles.button}
-                              onPress={() => {
-                              LayoutAnimation.configureNext(
-                                   LayoutAnimation.Presets.easeInEaseOut
-                              );
-                              setApproval(approval.filter((value) => value.orderNumber !== item.orderNumber));
-                              }}
-                              text="Delete"
-                              textStyle={{ fontWeight: "bold", color: "white" }}
-                              />
-                         </SwipeableQuickActions>
-                         )}
+                         keyExtractor={(index) => index.id.toString()}
+                         // renderLeftActions={({ item }) => (
+                         // <SwipeableQuickActions style={{backgroundColor: "red"}}>
+                         //      <SwipeableQuickActionButton style={styles.button}
+                         //      onPress={() => {
+                         //      LayoutAnimation.configureNext(
+                         //           LayoutAnimation.Presets.easeInEaseOut
+                         //      );
+                         //      setApproval(approval.filter((value) => value.orderNumber !== item.orderNumber));
+                         //      }}
+                         //      text="Delete"
+                         //      textStyle={{ fontWeight: "bold", color: "white" }}
+                         //      />
+                         // </SwipeableQuickActions>
+                         // )}
                          renderRightActions={({ item }) => (
                          <SwipeableQuickActions style={{backgroundColor: "green"}}>
-                              <SwipeableQuickActionButton style={styles.button} textStyle={{ fontWeight: "bold", color: "white" }} onPress={() => handleApprove(item)} text={item.isApproved ? "Disapprove" : "Approve"}/>
+                              <SwipeableQuickActionButton style={styles.button} textStyle={{ fontWeight: "bold", color: "white" }} onPress={() => handleApprove(item)} text={"Approve"}/>
                          </SwipeableQuickActions>
                          )}
                     />

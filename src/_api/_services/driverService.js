@@ -3,14 +3,20 @@ import { apiUrl } from "../config.json";
 
 const apiEndpoint = apiUrl + "/driver";
 
-export async function getAll() {
-    await http.get(apiEndpoint)
-    .then(res => {
-        const { data } = res;
+// export async function getAll() {
+//     await http.get(apiEndpoint)
+//     .then(res => {
+//         const { data } = res;
         
-        return data;
-    })
-    .catch(err => console.log(err))
+//         return data;
+//     })
+//     .catch(err => console.log(err))
+// }
+
+export async function getAll() {
+    const { data } = await http.get(apiEndpoint);
+    
+    return data;
 }
 
 export async function apply(values, userId) {
@@ -29,6 +35,5 @@ export async function apply(values, userId) {
 
 export default {
     getAll,
-
 };
 
