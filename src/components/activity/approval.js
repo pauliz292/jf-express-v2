@@ -30,14 +30,14 @@ const ApprovalScreen = observer(() => {
                     .then(res => {
                          if (res.length > 0) {
                               setTransactions(res);
-                              console.log(transactions)
+                              // console.log(transactions)
                          }
                     })
                     .catch((err) => console.log(err));
                }, 15000);
 
           }
-     }, [transactions    ])
+     }, [transactions])
 
      const NoUser = () => {
           return (
