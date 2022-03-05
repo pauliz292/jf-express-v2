@@ -24,16 +24,20 @@ const ApprovalScreen = observer(() => {
                const { unique_name } = loggedInUser;
                setRole(unique_name);
 
-               transactionService
-               .getAll()
-               .then(res => {
-                    if (res.length > 0) {
-                         setTransactions(res);
-                    }
-               })
-               .catch((err) => console.log(err));
+               setTimeout(() => {
+                    transactionService
+                    .getAll()
+                    .then(res => {
+                         if (res.length > 0) {
+                              setTransactions(res);
+                              console.log(transactions)
+                         }
+                    })
+                    .catch((err) => console.log(err));
+               }, 15000);
+
           }
-     }, [transactions, user])
+     }, [transactions    ])
 
      const NoUser = () => {
           return (

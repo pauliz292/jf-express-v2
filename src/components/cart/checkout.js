@@ -11,6 +11,7 @@ import * as Yup from 'yup'
 import * as transactionService from '../../_api/_services/transactionService'
 
 const CheckoutScreen = observer(() => {
+    let orderString = Math.random().toString(36).substring(2, 10).toUpperCase();
     const { checkoutStore, commonStore, cartStore } = useStore();
     const { cartItems } = cartStore;
     const { user } = commonStore;
@@ -31,7 +32,7 @@ const CheckoutScreen = observer(() => {
                     'products': toJS(cartItems),
                     'totalAmount': transaction.totalAmount,
                     'customerId': user.id,
-                    'orderNumber': transaction.orderNumber,
+                    'orderNumber': orderString,
                     'deliveryAddress': values.deliveryAddress,
                     'contactInfo': values.contactInfo,
                     'note': values.note
@@ -125,7 +126,7 @@ const CheckoutScreen = observer(() => {
                 <ListItem>
                     <ListItem.Content>
                         <ListItem.Title style={{ fontSize: 18, fontWeight: 'bold' }}>
-                            Order Number: {transaction.orderNumber}
+                            Order Number: {orderString}
                         </ListItem.Title>
                         <Text style={{ fontSize: 16 }}>
                             Total Amount: <Text style={{ color: '#1976D2', fontWeight: 'bold' }}>
