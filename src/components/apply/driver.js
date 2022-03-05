@@ -7,16 +7,18 @@ const DriverScreen = () => {
      const [ driver, setDriver ] = useState([]);
 
      useEffect(() => {
-          driverService
-          .getAll()
-          .then(res => {
-               if (res.length > 0) {
-                    setDriver(res);
-                    console.log(driver);
-               }
-          })
-          .catch((err) => console.log(err));
-     }, [])
+          setTimeout(() => {
+               driverService
+               .getAll()
+               .then(res => {
+                    if (res.length > 0) {
+                         setDriver(res);
+                         console.log(driver);
+                    }
+               })
+               .catch((err) => console.log(err));
+          }, 2000);
+     }, [driver])
 
      return (
           <ScrollView style={{backgroundColor:"#fff"}}>

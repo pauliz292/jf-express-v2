@@ -2,7 +2,8 @@ import { makeAutoObservable } from "mobx";
 import moment from "moment";
 
 const dateToday = new Date();
-const orderString =  Math.random().toString(36).substring(2, 10);
+// let orderString = Math.random().toString(36).substring(2, 10);
+
 
 export default class CheckoutStore {
     transaction = {
@@ -10,7 +11,7 @@ export default class CheckoutStore {
         'totalAmount': 0,
         'customer': "",
         'date': moment(dateToday).format("DD/MM/YYYY"),
-        'orderNumber': orderString.toUpperCase(),
+        'orderNumber': "",
         'deliveryAddress': "",
         'contactInfo': "",
         'note': ""
