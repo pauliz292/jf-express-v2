@@ -30,7 +30,7 @@ export default class CartStore {
             'description': item.description,
             'price': item.price,
             'totalPrice': 0,
-            'qty': 1
+            'qty': 0
         };
 
         let tempItem = items.find(i => i.productId === this.cartItem.productId)
