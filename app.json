@@ -23,6 +23,7 @@
     },
     "android": {
       "package": "com.xyz.APK",
+      "versionCode": 1,
       "permissions": ["WRITE_EXTERNAL_STORAGE"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
